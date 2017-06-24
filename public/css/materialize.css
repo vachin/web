@@ -2142,7 +2142,7 @@
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
 /**
  * 1. Set default font family to sans-serif.
- * 2. Prevent iOS and IE text size adjust after device orientation change,
+ * 2. Prevent iOS and IE textItem size adjust after device orientation change,
  *    without disabling user zoom.
  */
 html {
@@ -2387,8 +2387,8 @@ button {
 }
 
 /**
- * Address inconsistent `text-transform` inheritance for `button` and `select`.
- * All other form control elements do not inherit `text-transform` values.
+ * Address inconsistent `textItem-transform` inheritance for `button` and `select`.
+ * All other form control elements do not inherit `textItem-transform` values.
  * Correct `button` style inheritance in Firefox, IE 8/9/10/11, and Opera.
  * Correct `select` style inheritance in Firefox.
  */
@@ -2458,7 +2458,7 @@ input[type="radio"] {
 /**
  * Fix the cursor style for Chrome's increment/decrement buttons. For certain
  * `font-size` values of the `input`, it causes the cursor style of the
- * decrement button to change from `default` to `text`.
+ * decrement button to change from `default` to `textItem`.
  */
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
@@ -6419,7 +6419,7 @@ textarea.materialize-textarea {
   overflow-y: hidden;
   /* prevents scroll bar flash */
   padding: .8rem 0 1.6rem 0;
-  /* prevents text jump on Enter keypress */
+  /* prevents textItem jump on Enter keypress */
   resize: none;
   min-height: 3rem;
 }
@@ -6431,7 +6431,7 @@ textarea.materialize-textarea {
   overflow-wrap: break-word;
   /* future version of deprecated 'word-wrap' */
   padding-top: 1.2rem;
-  /* prevents text jump on Enter keypress */
+  /* prevents textItem jump on Enter keypress */
   position: absolute;
   top: 0;
 }

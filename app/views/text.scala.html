@@ -1,0 +1,43 @@
+@import includes._
+@(tags: List[TagWithCount], text: Option[TextModel], relatedTexts: List[TextModel], tag: Option[String])
+<div class="main">
+    <div class="row">
+        <div class="col s3">
+            @sidebar(tags, tag.getOrElse(""))
+        </div>
+        <div class="col s9">
+            @if(text.isDefined){
+                <div class="card blue">
+                    <div class="card-content white-textItem">
+                        <span class="card-title flow-textItem">@text.get.text</span>
+                        @if(text.get.by.isDefined){
+                            <p class="right">- @text.get.by</p>
+                        }
+                    </div>
+                    <div class="card-action blue lighten-1">
+                        @for(tag <- text.get.tags){
+                            <div class="chip"><a href="/tagged/@tag" title="@tag">@tag</a></div>
+                        }
+                        <div class="right">
+                            <a class="btn-floating waves-effect waves-light red"><i class="material-icons">favorite</i></a>
+                            <span style="font-size: 22px;" class="textItem-large">@text.get.likes</span>
+                        </div>
+                    </div>
+                    <div class="card-action blue lighten-3">
+                        <div class="addthis_inline_share_toolbox"></div>
+                    </div>
+                </div>
+            }
+            <div class="divider"></div>
+            <div class="section">
+                <h5>Related Texts</h5>
+                @for(textModel <- relatedTexts){
+                    @textItem(textModel)
+                }
+            </div>
+        </div>
+    </div>
+</div>
+@if(text.isDefined) {
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-594edbdf3f1a526c"></script>
+}

@@ -1,4 +1,12 @@
-@(tags: List[(String, Int)], tag: Option[String])
+@(tags: List[TagWithCount], tag: String = "")
 <div class="col s3">
-
+    <ul class="collection">
+        @for(tagWithCount <- tags){
+            @if(tagWithCount._id.equals(tag)) {
+                <li class="collection-item active">@tagWithCount.name <a href="tagged/@tagWithCount._id" class="secondary-content"></a></li>
+            }else{
+                <li class="collection-item">@tagWithCount.name <a href="tagged/@tagWithCount._id" class="secondary-content"></a></li>
+            }
+        }
+    </ul>
 </div>

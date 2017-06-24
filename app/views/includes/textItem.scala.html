@@ -1,0 +1,15 @@
+@(text: TextModel)
+<div class="card blue">
+    <div class="card-content white-textItem">
+        <span class="card-title flow-textItem">@text.text</span>
+    </div>
+    <div class="card-action blue lighten-1">
+        @for(tag <- text.tags){
+            <div class="chip"><a href="/tagged/@tag" title="@tag">@tag</a></div>
+        }
+        <div class="right">
+            <a class="btn-floating waves-effect waves-light red"><i class="material-icons">favorite</i></a>
+            <span style="font-size: 22px;" class="textItem-large">@text.likes</span>
+        </div>
+    </div>
+</div>
