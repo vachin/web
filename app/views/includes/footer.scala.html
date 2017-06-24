@@ -1,0 +1,35 @@
+@(any: String = "")
+<script src="@routes.Assets.at("javascripts/vendor/jquery.js")"></script>
+<script src="@routes.Assets.at("javascripts/vendor/what-input.js")"></script>
+<script src="@routes.Assets.at("javascripts/vendor/foundation.js")"></script>
+<script src="@routes.Assets.at("javascripts/jquery-ui.min.js")"></script>
+<script>
+        $(document).foundation();
+        $(document).ready(function() {
+            $("#vachin-search").autocomplete({
+                source: function (request, response) {
+                    var apiKey = 'AI39si7ZLU83bKtKd4MrdzqcjTVI3DK9FvwJR6a4kB_SW_Dbuskit-mEYqskkSsFLxN5DiG1OBzdHzYfW0zXWjxirQKyxJfdkg';
+                    var query = request.term;
+                    $.ajax({
+                        url: "https://suggestqueries.google.com/complete/search?hl=en&ds=yt&client=youtube&hjson=t&cp=1&q=" + query + "&key=" + apiKey + "&format=5&alt=json&callback=?",
+                        dataType: 'jsonp',
+                        success: function (data, textStatus, request) {
+                            response($.map(data[1], function (item) {
+                                return {
+                                    label: item[0],
+                                    value: item[0]
+                                }
+                            }));
+                        }
+                    });
+                },
+                select: function (event, ui) {
+                    window.location = "/search?q=" + ui.item.label;
+                    //$.youtubeAPI(ui.item.label);
+                }
+            });
+        });
+</script>
+
+</body>
+</html>
