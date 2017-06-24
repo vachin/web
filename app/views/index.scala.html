@@ -14,14 +14,30 @@
     }
 </style>
 @topbar(false)
-<br />
-<div class="row text-center">
-    <div class="column small-12 medium-8 large-8 small-centered large-centered medium-centered">
-        <img class="thumbnail" src="https://placehold.it/300x150">
-        <div class="input-group input-group-rounded">
-            <input class="input-group-field" type="search" id="vachin-search" />
-            <div class="input-group-button">
-                <input type="submit" class="button secondary" value="Search" />
+<div class="main">
+    <br />
+    <div class="row">
+        <div class="col s12 center-align">
+            <img src="http://placehold.it/300x150" class="" />
+            <div class="row">
+                <div class="input-field col s6 offset-s3 hide-on-small-only">
+                    <form action="search">
+                        <div class="input-field">
+                            <input name="q" id="vachin-search" placeholder="Search Vachin" type="search" required>
+                            <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+                            @*<i class="material-icons">close</i>*@
+                        </div>
+                    </form>
+                </div>
+                <div class="input-field col s12 hide-on-med-and-up">
+                    <form action="search">
+                        <div class="input-field">
+                            <input name="q" id="vachin-search-mobile" placeholder="Search Vachin" type="search" required>
+                            <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+                            @*<i class="material-icons">close</i>*@
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>

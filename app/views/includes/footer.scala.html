@@ -1,52 +1,40 @@
 @(any: String = "")
-<div class="vachin-footer">
-    <div class="top-bar">
-        <div class="top-bar-left">
-            <ul class="menu">
-                <li><a href="#">What</a></li>
-                <li><a href="#">Why</a></li>
-                <li><a href="#">How</a></li>
-            </ul>
-        </div>
-        <div class="top-bar-right">
-            <ul class="menu">
-                <li><a href="#">Privacy</a></li>
-                <li><a href="#">Terms</a></li>
-                <li><a href="#">Contact</a></li>
-            </ul>
+<footer class="page-footer light-blue lighten-1">
+    <div class="footer-copyright">
+        <div class="container">
+            © 2017 Vachin
+            <a class="grey-text text-lighten-4 right" href="#!">Privacy</a> &nbsp; <a class="grey-text text-lighten-4 right" href="#!">Terms</a> &nbsp; <a class="grey-text text-lighten-4 right" href="#!">Contact</a>
         </div>
     </div>
-</div>
-<script src="@routes.Assets.at("javascripts/vendor/jquery.js")"></script>
-<script src="@routes.Assets.at("javascripts/vendor/what-input.js")"></script>
-<script src="@routes.Assets.at("javascripts/vendor/foundation.js")"></script>
+</footer>
+<script src="@routes.Assets.at("javascripts/jquery-3.2.1.min.js")"></script>
+@*<script src="@routes.Assets.at("javascripts/materialize.min.js")"></script>*@
 <script src="@routes.Assets.at("javascripts/jquery-ui.min.js")"></script>
 <script>
-        $(document).foundation();
-        $(document).ready(function() {
-            $("#vachin-search").autocomplete({
-                source: function (request, response) {
-                    var apiKey = 'AI39si7ZLU83bKtKd4MrdzqcjTVI3DK9FvwJR6a4kB_SW_Dbuskit-mEYqskkSsFLxN5DiG1OBzdHzYfW0zXWjxirQKyxJfdkg';
-                    var query = request.term;
-                    $.ajax({
-                        url: "https://suggestqueries.google.com/complete/search?hl=en&ds=yt&client=youtube&hjson=t&cp=1&q=" + query + "&key=" + apiKey + "&format=5&alt=json&callback=?",
-                        dataType: 'jsonp',
-                        success: function (data, textStatus, request) {
-                            response($.map(data[1], function (item) {
-                                return {
-                                    label: item[0],
-                                    value: item[0]
-                                }
-                            }));
-                        }
-                    });
-                },
-                select: function (event, ui) {
-                    window.location = "/search?q=" + ui.item.label;
-                    //$.youtubeAPI(ui.item.label);
-                }
-            });
+    var API_ROOT = "http://localhost:8080/v1/api/";
+    $(document).ready(function() {
+        $("#vachin-search, #vachin-search-mobile").autocomplete({
+            source: function (request, response) {
+                var query = request.term;
+                $.ajax({
+                    url: API_ROOT + "texts/search?q=" + query,
+                    success: function (data, textStatus, request) {
+                        response($.map(data, function (item) {
+                            return {
+                                label: item.text,
+                                value: item._id
+                            }
+                        }));
+                    }
+                });
+            },
+            select: function (event, ui) {
+                window.location = "/" + ui.item.value;
+                //$.youtubeAPI(ui.item.label);
+            }
         });
+
+    });
 </script>
 </body>
 </html>
