@@ -41,7 +41,7 @@ class Application(dataService: DataService, logger: Logger) extends Controller {
     val futureTexts = dataService.searchTexts(q, tag)
     futureTagsWithCount.flatMap{ tagsWithCount =>
       futureTexts.map{ texts =>
-        Ok(views.html.tagged(tagsWithCount, texts, tag))
+        Ok(views.html.search(tagsWithCount, texts, tag, q))
       }
     }
   }

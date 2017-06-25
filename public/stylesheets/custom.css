@@ -26,16 +26,6 @@ body {
     color: inherit !important;
 }
 
-#topbarsearch .input-field .prefix {
-    width:0rem !important;
-}
-#topbarsearch nav ul li:hover, nav ul li.active {
-    background-color: transparent !important;
-}
-.input-field .prefix ~ input, .input-field .prefix ~ textarea, .input-field .prefix ~ label, .input-field .prefix ~ .validate ~ label, .input-field .prefix ~ .autocomplete-content{
-    margin-left: 1rem !important;
-}
-
 .ui-autocomplete.ui-front {
     z-index: 1031 !important;
 }

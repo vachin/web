@@ -8,9 +8,15 @@
         @sidebar(tags, tag.getOrElse(""))
         </div>
         <div class="col s9">
-        @for(textModel <- texts){
-            @textItem(textModel)
-        }
+            @if(texts.isEmpty){
+                <div>
+                    <h4 class="center-align red-text">Oops..! No results found..!</h4>
+                </div>
+            }else{
+                @for(textModel <- texts) {
+                    @textItem(textModel)
+                }
+            }
         </div>
     </div>
 </div>
