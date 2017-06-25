@@ -56,4 +56,8 @@ class Application(dataService: DataService, logger: Logger) extends Controller {
     }
   }
 
+  def newText() = Action.async {
+    Future(Ok(views.html.newText("New Text")))
+  }
+
 }

@@ -1,4 +1,4 @@
-@(any: String = "")
+@(injectMUI: Boolean = false)
 <footer class="page-footer light-blue lighten-1">
     <div class="footer-copyright">
         <div class="container">
@@ -10,10 +10,11 @@
     </div>
 </footer>
 <script src="@routes.Assets.at("javascripts/jquery-3.2.1.min.js")"></script>
-@*<script src="@routes.Assets.at("javascripts/materialize.min.js")"></script>*@
+@if(injectMUI){
+    <script src="@routes.Assets.at("javascripts/materialize.min.js")"></script>
+}
 <script src="@routes.Assets.at("javascripts/jquery-ui.min.js")"></script>
 <script>
-    var API_ROOT = "http://localhost:8080/v1/api/";
     $(document).ready(function() {
         $("#vachin-search, #vachin-search-mobile").autocomplete({
             source: function (request, response) {
@@ -38,6 +39,27 @@
 
         //$('.tooltipped').tooltip({delay: 50});
 
+    });
+    $.ajax({
+        url: API_ROOT + "tags",
+        success: function (data, textStatus, request) {
+            var dataObj = {};
+            data.forEach(function (item) {
+                dataObj[item._id] = null;
+            });
+            $(document).ready(function () {
+                console.log("Tags", dataObj);
+                $('.tags-autocomplete').material_chip({
+                    autocompleteOptions: {
+                        data: dataObj,
+                        limit: Infinity,
+                        minLength: 1
+                    },
+                    placeholder: 'Enter a tag',
+                    secondaryPlaceholder: '+Tag'
+                });
+            });
+        }
     });
 </script>
 </body>

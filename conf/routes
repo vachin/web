@@ -9,7 +9,9 @@ GET     /tagged/:tag                controllers.Application.getTaggedTexts(tag: 
 
 GET     /search                     controllers.Application.searchTexts(q: String, tag: Option[String])
 
-GET     /texts                      controllers.Application.getTexts(version: Option[Int], limit: Option[Int])
+GET     /trending                   controllers.Application.getTexts(version: Option[Int], limit: Option[Int])
+
+GET     /texts/new                  controllers.Application.newText()
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
