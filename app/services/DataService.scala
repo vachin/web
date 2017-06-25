@@ -5,6 +5,8 @@ import org.slf4j.Logger
 import play.api.libs.json.Json
 import play.api.libs.ws.WSClient
 import utils.Utils
+import scala.concurrent.Future
+import scala.concurrent.ExecutionContext.Implicits.global
 
 /**
   * Created by jyothi on 25/6/17.
@@ -18,7 +20,7 @@ class DataService(ws: WSClient, serverHost: String, logger: Logger) {
         case 200 => Json.toJson(response.json)
         case _ => Json.toJson(false)
       }
-      result.validate[TextModel]
+      result.validate[TextModel].asOpt
     }
   }
 
@@ -65,12 +67,12 @@ class DataService(ws: WSClient, serverHost: String, logger: Logger) {
         case 200 => Json.toJson(response.json)
         case _ => Json.toJson(false)
       }
-      result.validate[TagModel]
+      result.validate[TagModel].asOpt
     }
   }
 
   def putTag(tag: String) = {
-    val api = serverHost + "tags/" + tagId
+    val api = serverHost + "tags/" + tag
     val queryStrings = Utils.generateQueryParams(None, None, None, None, None)
     ws.url(api).withQueryString(queryStrings: _*).get().map { response =>
       val result = response.status match {

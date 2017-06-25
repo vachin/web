@@ -1,15 +1,25 @@
-@(text: TextModel)
-<div class="card blue">
-    <div class="card-content white-textItem">
-        <span class="card-title flow-textItem">@text.text</span>
-    </div>
-    <div class="card-action blue lighten-1">
-        @for(tag <- text.tags){
-            <div class="chip"><a href="/tagged/@tag" title="@tag">@tag</a></div>
-        }
-        <div class="right">
-            <a class="btn-floating waves-effect waves-light red"><i class="material-icons">favorite</i></a>
-            <span style="font-size: 22px;" class="textItem-large">@text.likes</span>
+@(text: TextModel, small: Boolean = false)
+<div class="card-panel hoverable">
+    <a href="/@text._id">
+        <div class="card blue">
+            <div class="card-content white-text">
+                @if(small){
+                    <p class="truncate">@text.text</p>
+                }else{
+                    <span class="card-title flow-text">@text.text</span>
+                }
+            </div>
+            @if(!small) {
+                <div class="card-action blue lighten-1">
+                    @for(tag <- text.tags) {
+                        <div class="chip"><a href="/tagged/@tag" title="@tag">@tag</a></div>
+                    }
+                    <div class="right">
+                        <a class="btn-floating waves-effect waves-light red"><i class="material-icons">favorite</i></a>
+                        <span style="font-size: 22px;" class="text-large">@text.likes</span>
+                    </div>
+                </div>
+            }
         </div>
-    </div>
+    </a>
 </div>

@@ -4,11 +4,6 @@ import play.api.{ApplicationLoader, BuiltInComponentsFromContext, LoggerConfigur
 import play.api.ApplicationLoader.Context
 import play.api._
 import play.api.libs.ws.ahc.AhcWSComponents
-
-import scala.concurrent.Future
-import scala.concurrent.duration._
-import scala.util.Try
-import scala.concurrent.Future
 import router.Routes
 import services.DataService
 
@@ -34,8 +29,10 @@ class ApiComponents(context: Context) extends BuiltInComponentsFromContext(conte
 
   lazy val dataService = new DataService(wsClient, serverHost, logger)
 
-  lazy val controller = new Application(dataService, logger)
+  lazy val applicationController = new Application(dataService, logger)
 
-  lazy val router = new Routes(httpErrorHandler, controller)
+  lazy val assets = new controllers.Assets(httpErrorHandler)
+
+  lazy val router = new Routes(httpErrorHandler, applicationController, assets)
 
 }

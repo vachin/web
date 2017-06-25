@@ -10,10 +10,18 @@ body {
     flex-direction: column;
 }
 
-main {
+.main {
     flex: 1 0 auto;
 }
 
 .page-footer{
     padding-top: 0;
+}
+
+.card-panel{
+    padding: 0 !important;
+}
+
+.no-blue-color{
+    color: inherit !important;
 }

@@ -4,8 +4,10 @@ import play.api._
 import org.slf4j.Logger
 import play.api.mvc._
 import services.DataService
+import scala.concurrent.Future
+import scala.concurrent.ExecutionContext.Implicits.global
 
-class Application(dataService: DataService, logger: Logger) extends Controller with {
+class Application(dataService: DataService, logger: Logger) extends Controller {
 
   def index = Action {
     Ok(views.html.index("Vachin - We know what you are thinking..!"))
@@ -42,12 +44,12 @@ class Application(dataService: DataService, logger: Logger) extends Controller w
   }
 
   def getText(textId: String) = Action.async {
-    val futureRelatedTexts = dataService.searchTexts(textId.replaceAll("-", " "))
+    val futureRelatedTexts = dataService.searchTexts(textId.replaceAll("-", " "), None)
     val futureTagsWithCount = dataService.getTagsWithCount(None, None)
-    val futureTexts = dataService.getText(textId)
+    val futureText = dataService.getText(textId)
     futureRelatedTexts.flatMap{ relatedTexts =>
       futureTagsWithCount.flatMap{ tagsWithCount =>
-        futureTexts.map{ texts =>
+        futureText.map{ text =>
           Ok(views.html.text(tagsWithCount, text, relatedTexts, None))
         }
       }

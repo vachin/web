@@ -3,12 +3,14 @@
     <div class="footer-copyright">
         <div class="container">
             © 2017 Vachin
-            <a class="grey-textItem textItem-lighten-4 right" href="#!">Privacy</a> &nbsp; <a class="grey-textItem textItem-lighten-4 right" href="#!">Terms</a> &nbsp; <a class="grey-textItem textItem-lighten-4 right" href="#!">Contact</a>
+            <div class="right">
+                <a class="grey-text text-lighten-4" href="#!">Privacy</a> &nbsp; <a class="grey-text text-lighten-4" href="#!">Terms</a> &nbsp; <a class="grey-text text-lighten-4" href="#!">Contact</a>
+            </div>
         </div>
     </div>
 </footer>
 <script src="@routes.Assets.at("javascripts/jquery-3.2.1.min.js")"></script>
-<script src="@routes.Assets.at("javascripts/materialize.min.js")"></script>
+@*<script src="@routes.Assets.at("javascripts/materialize.min.js")"></script>*@
 <script src="@routes.Assets.at("javascripts/jquery-ui.min.js")"></script>
 <script>
     var API_ROOT = "http://localhost:8080/v1/api/";
@@ -34,7 +36,7 @@
             }
         });
 
-        $('.tooltipped').tooltip({delay: 50});
+        //$('.tooltipped').tooltip({delay: 50});
 
     });
 </script>

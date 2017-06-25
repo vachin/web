@@ -1,5 +1,11 @@
 @import includes._
 @(tags: List[TagWithCount], text: Option[TextModel], relatedTexts: List[TextModel], tag: Option[String])
+@if(text.isDefined){
+    @header(text.get.text)
+}else{
+    @header()
+}
+@topbar()
 <div class="main">
     <div class="row">
         <div class="col s3">
@@ -8,8 +14,8 @@
         <div class="col s9">
             @if(text.isDefined){
                 <div class="card blue">
-                    <div class="card-content white-textItem">
-                        <span class="card-title flow-textItem">@text.get.text</span>
+                    <div class="card-content white-text">
+                        <span class="card-title flow-text">@text.get.text</span>
                         @if(text.get.by.isDefined){
                             <p class="right">- @text.get.by</p>
                         }
@@ -20,19 +26,21 @@
                         }
                         <div class="right">
                             <a class="btn-floating waves-effect waves-light red"><i class="material-icons">favorite</i></a>
-                            <span style="font-size: 22px;" class="textItem-large">@text.get.likes</span>
+                            <span style="font-size: 22px;" class="text-large">@text.get.likes</span>
                         </div>
                     </div>
                     <div class="card-action blue lighten-3">
                         <div class="addthis_inline_share_toolbox"></div>
                     </div>
                 </div>
+            }else{
+
             }
             <div class="divider"></div>
             <div class="section">
                 <h5>Related Texts</h5>
                 @for(textModel <- relatedTexts){
-                    @textItem(textModel)
+                    @textItem(textModel, true)
                 }
             </div>
         </div>
@@ -41,3 +49,4 @@
 @if(text.isDefined) {
     <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-594edbdf3f1a526c"></script>
 }
+@footer()

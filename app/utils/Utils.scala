@@ -14,9 +14,9 @@ object Utils {
     if(tagId.isDefined)
       returnList += ("tag" -> tagId.get)
     if(version.isDefined)
-      returnList += ("version" -> version.get)
+      returnList += ("version" -> version.get.toString)
     if(limit.isDefined)
-      returnList += ("limit" -> limit.get)
+      returnList += ("limit" -> limit.get.toString)
     if(q.isDefined)
       returnList += ("q" -> q.get)
     returnList.toList

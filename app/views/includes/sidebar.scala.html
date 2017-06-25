@@ -1,12 +1,11 @@
 @(tags: List[TagWithCount], tag: String = "")
-<div class="col s3">
-    <ul class="collection">
-        @for(tagWithCount <- tags){
-            @if(tagWithCount._id.equals(tag)) {
-                <li class="collection-item active">@tagWithCount.name <a href="tagged/@tagWithCount._id" class="secondary-content"></a></li>
-            }else{
-                <li class="collection-item">@tagWithCount.name <a href="tagged/@tagWithCount._id" class="secondary-content"></a></li>
-            }
+<ul class="collection with-header">
+    <li class="collection-header"><h6>Popular Tags</h6></li>
+    @for(tagWithCount <- tags){
+        @if(tagWithCount._id.equals(tag)) {
+            <li class="collection-item active"><a class="no-blue-color" href="/tagged/@tagWithCount._id">@tagWithCount._id <span class="secondary-content">@tagWithCount.count</span></a></li>
+        }else{
+            <li class="collection-item"><a class="no-blue-color" href="/tagged/@tagWithCount._id">@tagWithCount._id <span class="secondary-content">@tagWithCount.count</span></a></li>
         }
-    </ul>
-</div>
+    }
+</ul>
