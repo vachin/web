@@ -24,7 +24,7 @@
                     success: function (data, textStatus, request) {
                         response($.map(data, function (item) {
                             return {
-                                label: item.textItem,
+                                label: item.text,
                                 value: item._id
                             }
                         }));
