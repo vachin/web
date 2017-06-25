@@ -1,9 +1,12 @@
 package controllers
 
+import models.TextRequestModel
 import play.api._
 import org.slf4j.Logger
+import play.api.libs.json.{JsError, JsSuccess, Json}
 import play.api.mvc._
 import services.DataService
+
 import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
 
@@ -53,6 +56,21 @@ class Application(dataService: DataService, logger: Logger) extends Controller {
           Ok(views.html.text(tagsWithCount, text, relatedTexts, None))
         }
       }
+    }
+  }
+
+  def postText() = Action.async(parse.json) { implicit request =>
+    val textRequestModelOpt = request.body.validate[TextRequestModel]
+    val textRequestModel = textRequestModelOpt match {
+      case error: JsError => logger.warn("Errors: " + JsError.toJson(error)); None
+      case model: JsSuccess[_] => Some(model.get.asInstanceOf[TextRequestModel])
+    }
+    if(textRequestModel.isDefined) {
+      dataService.putText(textRequestModel.get).map(result =>
+        Ok(result)
+      )
+    }else{
+      Future(BadRequest(""))
     }
   }
 

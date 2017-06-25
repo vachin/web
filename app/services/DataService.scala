@@ -29,9 +29,9 @@ class DataService(ws: WSClient, serverHost: String, logger: Logger) {
     ws.url(api).post(Json.toJson(body)).map { response => 
       val result = response.status match {
         case 200 => Json.toJson(response.json)
-        case _ => Json.toJson(false)
+        case _ => Json.toJson("")
       }
-      result.validate[Boolean].getOrElse(false)
+      result.validate[String].getOrElse("")
     }
   }
 
@@ -77,9 +77,9 @@ class DataService(ws: WSClient, serverHost: String, logger: Logger) {
     ws.url(api).withQueryString(queryStrings: _*).get().map { response =>
       val result = response.status match {
         case 200 => Json.toJson(response.json)
-        case _ => Json.toJson(false)
+        case _ => Json.toJson("")
       }
-      result.validate[Boolean].getOrElse(false)
+      result.validate[String].getOrElse("")
     }
   }
 
