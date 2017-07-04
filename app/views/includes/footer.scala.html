@@ -10,7 +10,7 @@
     </div>
 </footer>
 <script src="@routes.Assets.at("javascripts/jquery-3.2.1.min.js")"></script>
-@if(injectMUI){
+@if(true){
     <script src="@routes.Assets.at("javascripts/materialize.min.js")"></script>
 }
 <script src="@routes.Assets.at("javascripts/jquery-ui.min.js")"></script>
@@ -36,6 +36,13 @@
                 //$.youtubeAPI(ui.item.label);
             }
         });
+
+        jQuery.ui.autocomplete.prototype._resizeMenu = function () {
+            var ul = this.menu.element;
+            ul.outerWidth(this.element.outerWidth());
+        };
+
+        $(".button-collapse").sideNav();
 
         //$('.tooltipped').tooltip({delay: 50});
 

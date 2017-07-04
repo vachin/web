@@ -78,4 +78,8 @@ class Application(dataService: DataService, logger: Logger) extends Controller {
     Future(Ok(views.html.newText("New Text")))
   }
 
+  def login = Action {
+    Ok(views.html.login("Vachin - We know what you are thinking..!"))
+  }
+
 }

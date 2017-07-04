@@ -1,7 +1,17 @@
-@(showSearch: Boolean = true)
+@(tags: List[TagWithCount] = List.empty, tag: String = "", showSearch: Boolean = true)
 <div class="navbar-fixed">
     <nav class="light-blue lighten-1" role="navigation">
         <div class="nav-wrapper container"><a id="logo-container" href="/" class="brand-logo">Vachin</a>
+            <ul class="side-nav collection with-header" id="nav-mobile">
+                <li class="collection-header"><h6>Popular Tags</h6></li>
+                @for(tagWithCount <- tags){
+                    @if(tagWithCount._id.equals(tag)) {
+                        <li class="collection-item active"><a class="no-blue-color" href="/tagged/@tagWithCount._id">@tagWithCount._id <span class="secondary-content">@tagWithCount.count</span></a></li>
+                    }else{
+                        <li class="collection-item"><a class="no-blue-color" href="/tagged/@tagWithCount._id">@tagWithCount._id <span class="secondary-content">@tagWithCount.count</span></a></li>
+                    }
+                }
+            </ul>
             <ul class="right hide-on-med-and-down">
                 @if(showSearch){
                     <li>
