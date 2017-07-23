@@ -8,7 +8,7 @@ import play.api.libs.json.Json
 case class TextModel(
                       _id: String,
                       text: String,
-                      likes: Int,
+                      views: Int,
                       //language: Option[String],
                       tags: List[String],
                       by: Option[String],
