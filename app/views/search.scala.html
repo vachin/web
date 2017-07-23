@@ -4,10 +4,10 @@
 @topbar(tags)
 <div class="main">
     <div class="row">
-        <div class="col s3">
+        <div class="col l3 xl2 hide-on-med-and-down">
         @sidebar(tags, tag.getOrElse(""))
         </div>
-        <div class="col s9">
+        <div class="col s12 m8 l7 xl7">
             @if(texts.isEmpty){
                 <div>
                     <h4 class="center-align red-text">Oops..! No results found..!</h4>

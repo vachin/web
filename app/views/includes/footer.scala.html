@@ -26,7 +26,8 @@
             onAutocomplete: function(val) {
                 window.location = '/' + autoCompleteData[val].id;
             },
-            minLength: 1
+            minLength: 1,
+            scrollLength: 3
         });
 
         $(autocompleteSelectors).on('input', function() {
@@ -122,6 +123,19 @@
             });
         }
     });
+
+    $(document).on('click', '.text-copy-icon', function (el) {
+        copyToClipboard($(this).data("text"));
+        Materialize.toast('Text copied..!', 2000);
+    });
+
+    function copyToClipboard(text) {
+        var $temp = $("<input>");
+        $("body").append($temp);
+        $temp.val(text).select();
+        document.execCommand("copy");
+        $temp.remove();
+    }
 
 </script>
 </body>

@@ -26,12 +26,7 @@ body {
     color: inherit !important;
 }
 
-.ui-autocomplete.ui-front {
-    z-index: 1031 !important;
-}
-.ui-menu-item a
-{
-    max-width:100%;
+.autocomplete-content.dropdown-content li span{
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;

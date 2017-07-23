@@ -2,9 +2,9 @@
 <div class="card-panel hoverable">
     <a href="/@text._id">
         <div class="card blue">
-            <div class="card-content white-text">
+            <div class="card-content white-text" style="padding: 10px">
                 @if(small){
-                    <p class="truncate">@text.text</p>
+                    <p><span style="width:90%; display: inline-block;" class="truncate">@text.text </span> <span class="right"> <i class="tiny material-icons" style="vertical-align: middle">visibility</i> @text.views</span></p>
                 }else{
                     <span class="card-title flow-text">@text.text</span>
                 }
@@ -15,8 +15,7 @@
                         <div class="chip"><a href="/tagged/@tag" title="@tag">@tag</a></div>
                     }
                     <div class="right">
-                        <a class="btn-floating waves-effect waves-light red"><i class="material-icons">favorite</i></a>
-                        <span style="font-size: 22px;" class="text-large">@text.views</span>
+                        <span style="font-size: 25px;" class="white-text"><i class="small material-icons" style="vertical-align: text-bottom">visibility</i> @text.views</span>
                     </div>
                 </div>
             }
