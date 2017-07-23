@@ -21,18 +21,28 @@
                         }
                     </div>
                     <div class="card-action blue lighten-1">
-                        @for(tag <- text.get.tags){
-                            <div class="chip"><a href="/tagged/@tag" title="@tag">@tag</a></div>
-                        }
-                        <div class="right">
-                            <span style="font-size: 25px;" class="white-text"><i class="small material-icons" style="vertical-align: text-bottom">visibility</i> @text.get.views</span>
+                        <div class="row">
+                            <div class="col s10">
+                                @for(tag <- text.get.tags){
+                                    <a href="/tagged/@tag" title="@tag"><div class="chip teal-text">@tag</div></a>
+                                }
+                            </div>
+                            <div class="col s2">
+                                <span style="font-size: 25px;" class="right white-text"><i class="small material-icons" style="vertical-align: text-bottom">visibility</i> @text.get.views</span>
+                            </div>
                         </div>
                     </div>
                     <div class="card-action blue lighten-3">
-                        <div class="addthis_inline_share_toolbox" style="display: inline-block"></div>
-                        <a class="right tooltipped" data-position="bottom" data-delay="50" data-tooltip="Click to Copy">
-                            <i class="small material-icons text-copy-icon white-text" style="vertical-align: middle" data-text="@text.get.text">content_copy</i>
-                        </a>
+                        <div class="row">
+                            <div class="col s10">
+                                <div class="addthis_inline_share_toolbox"></div>
+                            </div>
+                            <div class="col s2">
+                                <a class="right tooltipped" data-position="bottom" data-delay="50" data-tooltip="Click to Copy">
+                                    <i class="small material-icons text-copy-icon white-text" style="vertical-align: middle" data-text="@text.get.text">content_copy</i>
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             }else{

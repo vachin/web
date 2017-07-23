@@ -11,11 +11,15 @@
             </div>
             @if(!small) {
                 <div class="card-action blue lighten-1">
-                    @for(tag <- text.tags) {
-                        <div class="chip"><a href="/tagged/@tag" title="@tag">@tag</a></div>
-                    }
-                    <div class="right">
-                        <span style="font-size: 25px;" class="white-text"><i class="small material-icons" style="vertical-align: text-bottom">visibility</i> @text.views</span>
+                    <div class="row">
+                        <div class="col s10">
+                            @for(tag <- text.tags){
+                                <a href="/tagged/@tag" title="@tag"><div class="chip teal-text">@tag</div></a>
+                            }
+                        </div>
+                        <div class="col s2">
+                            <span style="font-size: 25px;" class="right white-text"><i class="small material-icons" style="vertical-align: text-bottom">visibility</i> @text.views</span>
+                        </div>
                     </div>
                 </div>
             }
