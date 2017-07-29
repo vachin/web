@@ -1,5 +1,5 @@
 @import includes._
-@(tags: List[TagWithCount], texts: List[TextModel], tag: Option[String])
+@(tags: List[TagWithCount], data: TextPaginatedModel, tag: Option[String])
 @header()
 @topbar(tags)
 <div class="main">
@@ -12,12 +12,12 @@
             <h5>@tag.get</h5>
             <div class="divider"></div>
         }
-        @if(texts.isEmpty){
+        @if(data.texts.isEmpty){
             <div>
                 <h4 class="center-align red-text">Oops..! No results found..!</h4>
             </div>
         }else{
-            @for(textModel <- texts) {
+            @for(textModel <- data.texts) {
                 @textItem(textModel)
             }
         }

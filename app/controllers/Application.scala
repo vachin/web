@@ -36,9 +36,9 @@ class Application(dataService: DataService, logger: Logger) extends Controller {
     }
   }
 
-  def searchTexts(q: String, tag: Option[String]) = Action.async {
+  def searchTexts(q: String, tag: Option[String], version: Option[Int], limit: Option[Int]) = Action.async {
     val futureTagsWithCount = dataService.getTagsWithCount(None, None)
-    val futureTexts = dataService.searchTexts(q, tag)
+    val futureTexts = dataService.searchTexts(q, tag, version, limit)
     futureTagsWithCount.flatMap{ tagsWithCount =>
       futureTexts.map{ texts =>
         Ok(views.html.search(tagsWithCount, texts, tag, q))

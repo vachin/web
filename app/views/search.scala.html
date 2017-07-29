@@ -1,4 +1,4 @@
-@(tags: List[TagWithCount], texts: List[TextModel], tag: Option[String], q: String)
+@(tags: List[TagWithCount], data: TextPaginatedModel, tag: Option[String], q: String)
 @import includes._
 @header()
 @topbar(tags)
@@ -8,12 +8,12 @@
         @sidebar(tags, tag.getOrElse(""))
         </div>
         <div class="col s12 m8 l7 xl7">
-            @if(texts.isEmpty){
+            @if(data.texts.isEmpty){
                 <div>
                     <h4 class="center-align red-text">Oops..! No results found..!</h4>
                 </div>
             }else{
-                @for(textModel <- texts) {
+                @for(textModel <- data.texts) {
                     @textItem(textModel)
                 }
             }

@@ -1,10 +1,11 @@
 package services
 
-import models.{TagModel, TagWithCount, TextModel, TextRequestModel}
+import models._
 import org.slf4j.Logger
 import play.api.libs.json.Json
 import play.api.libs.ws.WSClient
 import utils.Utils
+
 import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
 
@@ -43,19 +44,19 @@ class DataService(ws: WSClient, serverHost: String, logger: Logger) {
         case 200 => Json.toJson(response.json)
         case _ => Json.toJson(false)
       }
-      result.validate[List[TextModel]].getOrElse(List.empty[TextModel])
+      result.validate[TextPaginatedModel].getOrElse(TextPaginatedModel.empty)
     }
   }
 
-  def searchTexts(q: String, tagId: Option[String]) = {
+  def searchTexts(q: String, tagId: Option[String], version: Option[Int], limit: Option[Int]) = {
     val api = serverHost + "texts/search"
-    val queryStrings = Utils.generateQueryParams(None, tagId, None, None, Some(q))
+    val queryStrings = Utils.generateQueryParams(None, tagId, version, limit, Some(q))
     ws.url(api).withQueryString(queryStrings: _*).get().map { response => 
       val result = response.status match {
         case 200 => Json.toJson(response.json)
         case _ => Json.toJson(false)
       }
-      result.validate[List[TextModel]].getOrElse(List.empty[TextModel])
+      result.validate[TextPaginatedModel].getOrElse(TextPaginatedModel.empty)
     }
   }
 
