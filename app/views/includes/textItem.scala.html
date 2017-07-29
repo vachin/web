@@ -1,32 +1,32 @@
 @(text: TextModel, small: Boolean = false)
-    <div class="card-panel hoverable">
-            <div class="card blue">
-                <a href="/@text._id">
-                    <div class="card-content white-text" style="padding: 10px">
-                    @if(small){
-                        <p><span style="width:90%; display: inline-block;" class="truncate">@text.text </span> <span class="right"> <i class="tiny material-icons" style="vertical-align: middle">visibility</i> @text.views</span></p>
-                    }else{
-                        <span class="card-title flow-text">@text.text</span>
-                    }
-                    </div>
-                </a>
-                @if(!small) {
-                    <div class="card-action blue lighten-1">
-                        <div class="row">
-                            <div class="col s10">
-                                @for(tag <- text.tags){
-                                    <a href="/tagged/@tag" title="@tag">
-                                        <div class="chip teal-text">@tag</div>
-                                    </a>
-                                }
-                            </div>
-                            <div class="col s2">
-                                <a href="/@text._id">
-                                    <span style="font-size: 25px;" class="right white-text"><i class="small material-icons" style="vertical-align: text-bottom">visibility</i> @text.views</span>
+<div class="card-panel hoverable">
+        <div class="card blue">
+            <a href="/@text._id">
+                <div class="card-content white-text" style="padding: 10px">
+                @if(small){
+                    <p><span style="width:90%; display: inline-block;" class="truncate">@text.text </span> <span class="right"> <i class="tiny material-icons" style="vertical-align: middle">visibility</i> @text.views</span></p>
+                }else{
+                    <span class="card-title flow-text">@text.text</span>
+                }
+                </div>
+            </a>
+            @if(!small) {
+                <div class="card-action blue lighten-1">
+                    <div class="row">
+                        <div class="col s10">
+                            @for(tag <- text.tags){
+                                <a href="/tagged/@tag" title="@tag">
+                                    <div class="chip teal-text">@tag</div>
                                 </a>
-                            </div>
+                            }
+                        </div>
+                        <div class="col s2">
+                            <a href="/@text._id">
+                                <span style="font-size: 25px;" class="right white-text"><i class="small material-icons" style="vertical-align: text-bottom">visibility</i> @text.views</span>
+                            </a>
                         </div>
                     </div>
-                }
-            </div>
-    </div>
+                </div>
+            }
+        </div>
+</div>
