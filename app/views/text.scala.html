@@ -1,5 +1,5 @@
 @import includes._
-@(tags: List[TagWithCount], text: Option[TextModel], relatedTexts: List[TextModel], tag: Option[String])
+@(tags: List[TagWithCount], text: Option[TextModel], relatedData: TextPaginatedModel, tag: Option[String])
 @if(text.isDefined){
     @header(text.get.text)
 }else{
@@ -53,7 +53,7 @@
             <div class="divider"></div>
             <div class="section">
                 <h5>Related Texts</h5>
-                @for(textModel <- relatedTexts){
+                @for(textModel <- relatedData.texts){
                     @textItem(textModel, true)
                 }
             </div>

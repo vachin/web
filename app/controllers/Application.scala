@@ -47,7 +47,7 @@ class Application(dataService: DataService, logger: Logger) extends Controller {
   }
 
   def getText(textId: String) = Action.async {
-    val futureRelatedTexts = dataService.searchTexts(textId.replaceAll("-", " "), None)
+    val futureRelatedTexts = dataService.searchTexts(textId.replaceAll("-", " "), None, Some(1), Some(20))
     val futureTagsWithCount = dataService.getTagsWithCount(None, None)
     val futureText = dataService.getText(textId)
     futureRelatedTexts.flatMap{ relatedTexts =>

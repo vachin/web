@@ -1,0 +1,23 @@
+@(pagination: PaginationModel, tag: Option[String], q: Option[String])
+@getHref(version: Int) = @{
+    if(tag.isDefined){
+        s"/tagged/${tag.get}?version=$version"
+    }
+    if(q.isDefined){
+        s"/search/${q.get}?version=$version"
+    }
+}
+
+<ul class="pagination">
+      @if(pagination.version == 1){
+        <li class="disabled"><a style="cursor: default;"><i class="material-icons">chevron_left</i></a></li>
+      }else{
+          <li><a href="@getHref(pagination.version - 1)"><i class="material-icons">chevron_left</i></a></li>
+      }
+    <li class="active"><a href="@getHref(pagination.version)">@pagination.version</a></li>
+    <li class="waves-effect"><a href="#!">2</a></li>
+    <li class="waves-effect"><a href="#!">3</a></li>
+    <li class="waves-effect"><a href="#!">4</a></li>
+    <li class="waves-effect"><a href="#!">5</a></li>
+    <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
+</ul>
