@@ -1,23 +1,49 @@
 @(pagination: PaginationModel, tag: Option[String], q: Option[String])
 @getHref(version: Int) = @{
-    if(tag.isDefined){
-        s"/tagged/${tag.get}?version=$version"
-    }
     if(q.isDefined){
-        s"/search/${q.get}?version=$version"
+        s"/search?q=${q.get}&version=$version"
+    }else if(q.isDefined && tag.isDefined){
+        s"/search?q=${q.get}&tag=${tag.get}&version=$version"
+    }else if(tag.isDefined){
+        s"/tagged/${tag.get}?version=$version"
+    }else{
+        "#!"
     }
 }
 
+@hasNextVersion(pagination: PaginationModel, step: Int) = @{
+    var maxVersion = pagination.total / pagination.limit
+    if(pagination.total % pagination.limit > 0){
+        maxVersion += 1
+    }
+    step + pagination.version <= maxVersion
+}
+
 <ul class="pagination">
-      @if(pagination.version == 1){
+    @if(pagination.version == 1){
         <li class="disabled"><a style="cursor: default;"><i class="material-icons">chevron_left</i></a></li>
-      }else{
-          <li><a href="@getHref(pagination.version - 1)"><i class="material-icons">chevron_left</i></a></li>
-      }
-    <li class="active"><a href="@getHref(pagination.version)">@pagination.version</a></li>
-    <li class="waves-effect"><a href="#!">2</a></li>
-    <li class="waves-effect"><a href="#!">3</a></li>
-    <li class="waves-effect"><a href="#!">4</a></li>
-    <li class="waves-effect"><a href="#!">5</a></li>
-    <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
+    }else{
+        <li><a href="@getHref(pagination.version - 1)"><i class="material-icons">chevron_left</i></a></li>
+    }
+    <li class="active"><a style="cursor: default;">@pagination.version</a></li>
+    @if(hasNextVersion(pagination, 1)){
+        <li><a href="@getHref(pagination.version + 1)">@(pagination.version + 1)</a></li>
+    }
+    @if(hasNextVersion(pagination, 2)){
+        <li><a href="@getHref(pagination.version + 2)">@(pagination.version + 2)</a></li>
+    }
+    @if(hasNextVersion(pagination, 3)){
+        <li><a href="@getHref(pagination.version + 3)">@(pagination.version + 3)</a></li>
+    }
+    @if(hasNextVersion(pagination, 4)){
+        <li><a href="@getHref(pagination.version + 4)">@(pagination.version + 4)</a></li>
+    }
+    @if(hasNextVersion(pagination, 5)){
+        <li><a href="@getHref(pagination.version + 5)">@(pagination.version + 5)</a></li>
+    }
+    @if(hasNextVersion(pagination, 1)){
+        <li><a href="@getHref(pagination.version + 1)"><i class="material-icons">chevron_right</i></a></li>
+    }else{
+        <li class="disabled"><a style="cursor: default;"><i class="material-icons">chevron_right</i></a></li>
+    }
 </ul>

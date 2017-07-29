@@ -37,7 +37,7 @@
                     url: API_ROOT + "texts/search?q=" + query,
                     success: function (data, textStatus, request) {
                         var formattedData = {};
-                        data.forEach(function (item) {
+                        data.texts.forEach(function (item) {
                             formattedData[item.text] = {
                                 id: item._id,
                                 views: item.views,
