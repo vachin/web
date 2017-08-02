@@ -17,7 +17,7 @@
         var autocompleteSelectors = '#vachin-search, #vachin-search-mobile';
 
         var autoCompleteData = {
-            "Jyothi": null
+            "Vachin": null
         }; // if data is empty {}, it won't work.
 
         $(autocompleteSelectors).autocomplete({
@@ -55,6 +55,27 @@
         $(".button-collapse").sideNav();
 
         //$('.tooltipped').tooltip({delay: 50});
+
+        var initialNav = "#initial-nav";
+        var searchNav = "#search-nav";
+        var searchClick = "#search-click";
+        var searchSubmit = "#search-submit"; //TODO:
+        var searchClose = "#search-close";
+        $(searchClick).click(function (e) {
+            $(initialNav).hide(500);
+            $(searchNav).show(500);
+            $(searchNav).find("input").focus();
+        });
+
+        $(searchNav).find("input").blur(function (e) {
+            $(initialNav).show(500);
+            $(searchNav).hide(500);
+        });
+
+        $(searchClose).click(function (e) {
+            $(initialNav).show(500);
+            $(searchNav).hide(500);
+        });
 
     });
 

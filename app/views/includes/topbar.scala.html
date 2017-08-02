@@ -1,23 +1,25 @@
 @(tags: List[TagWithCount] = List.empty, tag: String = "", showSearch: Boolean = true)
 <div class="navbar-fixed">
     <nav class="light-blue lighten-1" role="navigation">
-        <div class="nav-wrapper container">
+        <div class="nav-wrapper container" id="initial-nav">
             <a id="logo-container" href="/" class="brand-logo">Vachin</a>
             <ul class="right">
+                <li class="hide-on-small-and-down"><a title="Trending" href="/trending">Trending</a></li>
+                <li class="hide-on-med-and-up"><a title="Trending" href="/trending"><i class="material-icons">trending_up</i></a></li>
                 @if(showSearch){
-                    <li>
-                        <div class="center row">
-                            <div class="input-field col s12 white-text">
-                                <i class="white-text material-icons prefix">search</i>
-                                <input type="text" placeholder="search" id="vachin-search" class="white-text" >
-                            </div>
-                        </div>
-                    </li>
+                    <li><a title="Search" id="search-click"><i class="material-icons">search</i></a></li>
                 }
-                <li><a title="Trending" href="/trending">Trending</a></li>
-                @*<li><a title="Add New" href="/texts/new"><i class="material-icons">add</i></a></li>*@
             </ul>
             <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+        </div>
+        <div class="nav-wrapper container" id="search-nav" style="display: none">
+            <form action="/search">
+                <div class="input-field">
+                    <input name="q" type="search" placeholder="search" id="vachin-search" class="white-text" />
+                    <label class="label-icon" for="search"><i class="material-icons" id="search-submit">search</i></label>
+                    <i class="material-icons" id="search-close">close</i>
+                </div>
+            </form>
         </div>
     </nav>
 </div>
