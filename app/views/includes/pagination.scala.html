@@ -24,6 +24,11 @@
         <li class="disabled"><a style="cursor: default;"><i class="material-icons">chevron_left</i></a></li>
     }else{
         <li><a href="@getHref(pagination.version - 1)"><i class="material-icons">chevron_left</i></a></li>
+        @for(i <- (pagination.version - 5) until pagination.version){
+            @if(i > 0) {
+                <li><a href="@getHref(i)">@i</a></li>
+            }
+        }
     }
     <li class="active"><a style="cursor: default;">@pagination.version</a></li>
     @if(hasNextVersion(pagination, 1)){
