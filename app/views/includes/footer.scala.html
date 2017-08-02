@@ -85,7 +85,7 @@
 
     });
 
-    /*$.ajax({
+    $.ajax({
         url: API_ROOT + "tags",
         success: function (data, textStatus, request) {
             var dataObj = {};
@@ -93,7 +93,6 @@
                 dataObj[item._id] = null;
             });
             $(document).ready(function () {
-                console.log("Tags", dataObj);
                 $('.tags-autocomplete').material_chip({
                     autocompleteOptions: {
                         data: dataObj,
@@ -149,7 +148,7 @@
 
             });
         }
-    });*/
+    });
 
     $(document).on('click', '.text-copy-icon', function (el) {
         copyToClipboard($(this).data("text"));
