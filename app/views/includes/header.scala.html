@@ -1,17 +1,26 @@
-@(title: String = "Vachin | We speak your feelings..!")
+@(request: play.api.mvc.Request[Any], title: String = "Vachin | Let's write our feelings..!", text: Option[TextModel] = None)
 <!doctype html>
-<html class="no-js" lang="en">
+<html class="no-js" prefix="og: http://ogp.me/ns#">
     <head>
         <meta charset="utf-8" />
         <meta http-equiv="x-ua-compatible" content="ie=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="icon" href="@routes.Assets.at("images/favicon.ico")" />
         <title>@title</title>
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="@title" />
+        <meta property="og:image" content="@routes.Assets.at("images/logo.png")"/>
+        <meta property="og:description" content="A message aggregator with much more to do.!" />
+        <meta property="og:site_name" content="Vachin" />
+        <meta property="og:url" content="https://vach.in@request.uri" />
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@@wevachin" />
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <link rel="stylesheet" href="@routes.Assets.at("stylesheets/materialize.min.css")" />
         <link rel="stylesheet" href="@routes.Assets.at("stylesheets/custom.css")" />
         <script>
                 //window.API_ROOT = "http://api.vachin.tech/v1/api/"; //FIXME: not here
-                window.API_ROOT = "http://localhost:8080/v1/api/"; //FIXME: not here
+                window.API_ROOT = "http://localhost:8080/v1/api/";
         </script>
     </head>
     <body>

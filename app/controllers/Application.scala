@@ -12,11 +12,11 @@ import scala.concurrent.ExecutionContext.Implicits.global
 
 class Application(dataService: DataService, logger: Logger) extends Controller {
 
-  def index = Action {
+  def index = Action { implicit request =>
     Ok(views.html.index("Vachin - We know what you are thinking..!"))
   }
 
-  def getTexts(version: Option[Int], limit: Option[Int]) = Action.async {
+  def getTexts(version: Option[Int], limit: Option[Int]) = Action.async { implicit request =>
     val futureTagsWithCount = dataService.getTagsWithCount(None, None)
     val futureTexts = dataService.getTexts(None, version, limit)
     futureTagsWithCount.flatMap{ tagsWithCount =>
@@ -26,7 +26,7 @@ class Application(dataService: DataService, logger: Logger) extends Controller {
     }
   }
 
-  def getTaggedTexts(tag: String, version: Option[Int], limit: Option[Int]) = Action.async {
+  def getTaggedTexts(tag: String, version: Option[Int], limit: Option[Int]) = Action.async { implicit request =>
     val futureTagsWithCount = dataService.getTagsWithCount(None, None)
     val futureTexts = dataService.getTexts(Some(tag), version, limit)
     futureTagsWithCount.flatMap{ tagsWithCount =>
@@ -36,7 +36,7 @@ class Application(dataService: DataService, logger: Logger) extends Controller {
     }
   }
 
-  def searchTexts(q: String, tag: Option[String], version: Option[Int], limit: Option[Int]) = Action.async {
+  def searchTexts(q: String, tag: Option[String], version: Option[Int], limit: Option[Int]) = Action.async { implicit request =>
     val futureTagsWithCount = dataService.getTagsWithCount(None, None)
     val futureTexts = dataService.searchTexts(q, tag, version, limit)
     futureTagsWithCount.flatMap{ tagsWithCount =>
@@ -46,7 +46,7 @@ class Application(dataService: DataService, logger: Logger) extends Controller {
     }
   }
 
-  def getText(textId: String) = Action.async {
+  def getText(textId: String) = Action.async { implicit request =>
     val futureRelatedTexts = dataService.searchTexts(textId.replaceAll("-", " "), None, Some(1), Some(10)) //FIXME: not fixed for this limit value
     val futureTagsWithCount = dataService.getTagsWithCount(None, None)
     val futureText = dataService.getText(textId)
@@ -74,11 +74,11 @@ class Application(dataService: DataService, logger: Logger) extends Controller {
     }
   }
 
-  def newText() = Action.async {
+  def newText() = Action.async { implicit request =>
     Future(Ok(views.html.newText("New Text")))
   }
 
-  def login = Action {
+  def login = Action { implicit request =>
     Ok(views.html.login("Vachin - We know what you are thinking..!"))
   }
 

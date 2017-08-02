@@ -1,6 +1,6 @@
 @import includes._
-@(tags: List[TagWithCount], data: TextPaginatedModel, tag: Option[String])
-@header()
+@(tags: List[TagWithCount], data: TextPaginatedModel, tag: Option[String])(implicit request: play.api.mvc.Request[Any])
+@header(request, title = s"Tagged ${tag.getOrElse("")} | Vachin")
 @topbar(tags)
 <div class="main">
     <div class="row">
@@ -9,7 +9,7 @@
         </div>
         <div class="col s12 m8 l7 xl7">
         @if(tag.isDefined){
-            <h5>@tag.get</h5>
+            <h5 align="center" class="purple-text"><i class="material-icons">loyalty</i> @tag.get</h5>
             <div class="divider"></div>
         }
         @if(data.texts.isEmpty){

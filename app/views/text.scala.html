@@ -1,9 +1,9 @@
 @import includes._
-@(tags: List[TagWithCount], text: Option[TextModel], relatedData: TextPaginatedModel, tag: Option[String])
+@(tags: List[TagWithCount], text: Option[TextModel], relatedData: TextPaginatedModel, tag: Option[String])(implicit request: play.api.mvc.Request[Any])
 @if(text.isDefined){
-    @header(text.get.text)
+    @header(request, text.get.text, text = text)
 }else{
-    @header()
+    @header(request, title = "Text Not Found | Vachin")
 }
 @topbar(tags)
 <div class="main">

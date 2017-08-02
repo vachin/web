@@ -1,6 +1,6 @@
-@(message: String)
+@(message: String)(implicit request: play.api.mvc.Request[Any])
 @import includes._
-@header()
+@header(request)
 @topbar(showSearch = false)
 <script>
 
