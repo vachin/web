@@ -17,14 +17,17 @@
         var autocompleteSelectors = '#vachin-search, #vachin-search-mobile';
 
         var autoCompleteData = {
-            "Vachin": null
-        }; // if data is empty {}, it won't work.
+            "vachin": null
+        };
+
+        var autoCompleteMap = {};
 
         $(autocompleteSelectors).autocomplete({
             data: autoCompleteData,
             limit: 5,
             onAutocomplete: function(val) {
-                window.location = '/' + autoCompleteData[val].id;
+                console.log(val);
+                window.location = '/' + autoCompleteMap[val].id;
             },
             minLength: 1,
             scrollLength: 3
@@ -37,14 +40,17 @@
                     url: API_ROOT + "texts/search?q=" + query,
                     success: function (data, textStatus, request) {
                         var formattedData = {};
+                        var formattedMap = {};
                         data.texts.forEach(function (item) {
-                            formattedData[item.text] = {
+                            formattedData[item.text] = null;
+                            formattedMap[item.text] = {
                                 id: item._id,
                                 views: item.views,
                                 image: null
                             };
                         });
                         $.extend(autoCompleteData, formattedData);
+                        $.extend(autoCompleteMap, formattedMap);
                     }
                 });
             }
