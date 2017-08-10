@@ -12,8 +12,7 @@ case class TextModel(
                       //language: Option[String],
                       tags: List[String],
                       by: Option[String],
-                      user: Option[String],
-                      verified: Option[Boolean]
+                      user: Option[String]
                     )
 
 object TextModel {
@@ -24,8 +23,7 @@ case class TextRequestModel(
                              text: String,
                              tags: List[String],
                              by: Option[String],
-                             user: Option[String],
-                             verified: Option[Boolean]
+                             user: Option[String]
                            )
 
 object TextRequestModel {
@@ -38,7 +36,7 @@ object TextRequestModel {
   }
 
   def toTextModel(textRequestModel: TextRequestModel): TextModel = {
-    TextModel(getTextId(textRequestModel.text), textRequestModel.text, 0, textRequestModel.tags, textRequestModel.by, textRequestModel.user, None)
+    TextModel(getTextId(textRequestModel.text), textRequestModel.text, 0, textRequestModel.tags, textRequestModel.by, textRequestModel.user)
   }
 
 }

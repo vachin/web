@@ -9,11 +9,12 @@ import services.DataService
 
 import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
+import utils.Utils._
 
 class Application(dataService: DataService, logger: Logger) extends Controller {
 
-  def index = Action { implicit request =>
-    Ok(views.html.index("Vachin - We know what you are thinking..!"))
+  def index = Action.async { implicit request =>
+    Future(Ok(views.html.index(title)))
   }
 
   def getTexts(version: Option[Int], limit: Option[Int]) = Action.async { implicit request =>
@@ -75,11 +76,24 @@ class Application(dataService: DataService, logger: Logger) extends Controller {
   }
 
   def newText() = Action.async { implicit request =>
-    Future(Ok(views.html.newText("New Text")))
+    Future {
+      request.session.get("user").map { user =>
+        Ok(views.html.newText("New Text"))
+      }.getOrElse {
+        Unauthorized(views.html.login("Oops, you are not connected"))
+      }
+    }
   }
 
-  def login = Action { implicit request =>
-    Ok(views.html.login("Vachin - We know what you are thinking..!"))
+  def login = Action.async { implicit request =>
+    Future {
+      request.session.get("user").map { user =>
+        Ok(views.html.newText(title)).withSession(
+          "user" -> user)
+      }.getOrElse {
+        Unauthorized(views.html.login("Welcome!"))
+      }
+    }
   }
 
 }
