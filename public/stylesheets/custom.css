@@ -31,3 +31,7 @@ body {
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
+dt, dd.info{
+    display: none !important;
+}

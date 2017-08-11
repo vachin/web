@@ -1,8 +1,11 @@
 package controllers
 
-import models.TextRequestModel
+import com.google.inject.Inject
+import models.{LoginModel, TextRequestModel}
+import models.Forms._
 import play.api._
 import org.slf4j.Logger
+import play.api.i18n.{I18nSupport, MessagesApi}
 import play.api.libs.json.{JsError, JsSuccess, Json}
 import play.api.mvc._
 import services.DataService
@@ -11,7 +14,8 @@ import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
 import utils.Utils._
 
-class Application(dataService: DataService, logger: Logger) extends Controller {
+@Inject
+class Application (dataService: DataService, logger: Logger, val messagesApi: MessagesApi, auth: LoginModel) extends Controller with I18nSupport {
 
   def index = Action.async { implicit request =>
     Future(Ok(views.html.index(title)))
@@ -80,20 +84,36 @@ class Application(dataService: DataService, logger: Logger) extends Controller {
       request.session.get("user").map { user =>
         Ok(views.html.newText("New Text"))
       }.getOrElse {
-        Unauthorized(views.html.login("Oops, you are not connected"))
+        Redirect(routes.Application.login())
       }
     }
   }
 
-  def login = Action.async { implicit request =>
+  def login() = Action.async { implicit request =>
     Future {
       request.session.get("user").map { user =>
-        Ok(views.html.newText(title)).withSession(
+        Redirect(routes.Application.newText()).withSession(
           "user" -> user)
       }.getOrElse {
-        Unauthorized(views.html.login("Welcome!"))
+        Ok(views.html.login("Welcome!"))
       }
     }
+  }
+
+  def loginPost = Action { implicit request =>
+    loginForm.bindFromRequest.fold(
+      formWithErrors => {
+        Ok(views.html.login("Invalid Request"))
+      },
+      userData => {
+        if(auth.username.equals(userData.username) && auth.password.equals(userData.password)){
+          Redirect(routes.Application.newText()).withSession(
+            "user" -> userData.username)
+        }else{
+          Redirect(routes.Application.login())
+        }
+      }
+    )
   }
 
 }

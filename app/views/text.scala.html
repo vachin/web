@@ -5,7 +5,7 @@
 }else{
     @header(request, title = "Text Not Found | Vachin")
 }
-@topbar(tags)
+@topbar(tags, request = Some(request))
 <div class="main">
     <div class="row">
         <div class="col l3 xl2 hide-on-med-and-down">

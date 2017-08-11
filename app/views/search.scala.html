@@ -1,7 +1,7 @@
 @(tags: List[TagWithCount], data: TextPaginatedModel, tag: Option[String], q: String)(implicit request: play.api.mvc.Request[Any])
 @import includes._
 @header(request, title = s"$q | Vachin | Search")
-@topbar(tags)
+@topbar(tags, request = Some(request))
 <div class="main">
     <div class="row">
         <div class="col l3 xl2 hide-on-med-and-down">

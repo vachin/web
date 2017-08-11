@@ -17,4 +17,11 @@ object Forms {
     )(TextRequestModel.apply)(TextRequestModel.unapply)
   )
 
+  val loginForm = Form(
+    mapping(
+      "username" -> nonEmptyText,
+      "password" -> nonEmptyText
+    )(LoginModel.apply)(LoginModel.unapply)
+  )
+
 }

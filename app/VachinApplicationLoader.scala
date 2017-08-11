@@ -1,8 +1,10 @@
 import controllers.Application
+import models.LoginModel
 import org.slf4j.LoggerFactory
 import play.api.{ApplicationLoader, BuiltInComponentsFromContext, LoggerConfigurator}
 import play.api.ApplicationLoader.Context
 import play.api._
+import play.api.i18n.I18nComponents
 import play.api.libs.ws.ahc.AhcWSComponents
 import router.Routes
 import services.DataService
@@ -21,15 +23,18 @@ class VachinApplicationLoader extends ApplicationLoader {
   }
 }
 
-class ApiComponents(context: Context) extends BuiltInComponentsFromContext(context)  with AhcWSComponents {
+class ApiComponents(context: Context) extends BuiltInComponentsFromContext(context)  with AhcWSComponents with I18nComponents {
 
   val serverHost = configuration.getString("play.server.host").get
+
+  lazy val username = configuration.getString("play.auth.username").get
+  lazy val password = configuration.getString("play.auth.password").get
 
   lazy val logger = LoggerFactory.getLogger("VachinLogger")
 
   lazy val dataService = new DataService(wsClient, serverHost, logger)
 
-  lazy val applicationController = new Application(dataService, logger)
+  lazy val applicationController = new Application(dataService, logger, messagesApi, LoginModel(username, password))
 
   lazy val assets = new controllers.Assets(httpErrorHandler)
 
