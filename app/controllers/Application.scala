@@ -122,4 +122,10 @@ class Application (dataService: DataService, logger: Logger, val messagesApi: Me
     )
   }
 
+  def logout = Action.async { implicit request =>
+    Future{
+      Redirect(routes.Application.login()).withNewSession
+    }
+  }
+
 }
