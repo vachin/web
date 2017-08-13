@@ -1,5 +1,7 @@
 package utils
 
+import models.LoginModel
+
 import scala.collection.mutable.ListBuffer
 
 /**
@@ -22,7 +24,24 @@ object Utils {
     returnList.toList
   }
 
-  val title = "Vachin | Let's express our feelings..!"
+  val title = "Vachin | Let's express ourselves..!"
+
+  def isObjectInList(authStore: List[LoginModel], loginModel: LoginModel): Boolean = {
+    for(model <- authStore){
+      if(model.username.equals(loginModel.username) && model.password.equals(loginModel.password)){
+        return true
+      }
+    }
+    false
+  }
+
+  val keywords = "vachin, messages, texts, quotes, social, chat, feelings, inbox, online, online quotes, online messages"
+
+  def getMetaKeywords(tag: String): String = {
+    s"$keywords $tag messages, $tag tagged messages, $tag quotes, $tag texts, $tag sentences, $tag memos"
+  }
+
+  val description = "A message aggregator with much more to do.!"
 
 
 }

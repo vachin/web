@@ -1,7 +1,7 @@
 @(message: String)(implicit request: play.api.mvc.Request[Any])
 @import includes._
 
-@header(request)
+@header(request, title = "New Text | Vachin")
 @topbar(showSearch = false, request = Some(request))
 <div class="main">
     <br />

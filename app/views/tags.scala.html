@@ -1,0 +1,21 @@
+@import includes._
+@(tags: List[TagWithCount], data: List[TagWithCount])(implicit request: play.api.mvc.Request[Any])
+@header(request, title = s"All Tags | Vachin")
+@topbar(tags, request = Some(request))
+<div class="main">
+  <div class="row">
+    <div class="col l3 xl2 hide-on-med-and-down">
+    @sidebar(tags)
+    </div>
+    <div class="col s12 m8 l7 xl7">
+      <h5 align="center" class="purple-text"><i class="material-icons">loyalty</i> All Tags</h5>
+      <div class="divider"></div>
+      <div class="collection with-header">
+      @for(tagWithCount <- data){
+        <a href="/tagged/@tagWithCount._id" title="@tagWithCount._id" class="collection-item">@tagWithCount._id <span class="secondary-content">@tagWithCount.count</span></a>
+      }
+      </div>
+    </div>
+  </div>
+</div>
+@footer()

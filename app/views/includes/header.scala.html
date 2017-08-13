@@ -1,20 +1,27 @@
-@(request: play.api.mvc.Request[Any], title: String = utils.Utils.title, text: Option[TextModel] = None)
+@(request: play.api.mvc.Request[Any], title: String = utils.Utils.title, text: Option[TextModel] = None, tag: Option[String] = None)
 <!doctype html>
 <html class="no-js" prefix="og: http://ogp.me/ns#">
     <head>
         <meta charset="utf-8" />
         <meta http-equiv="x-ua-compatible" content="ie=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        @if(tag.isDefined){
+            <meta name="keyword" content="@utils.Utils.getMetaKeywords(tag.get)"/>
+        }else{
+            <meta name="keyword" content="@utils.Utils.keywords"/>
+        }
+        <meta name="author" content="Vachin">
         <link rel="icon" href="@routes.Assets.at("images/favicon.ico")" />
         <title>@title</title>
         <meta property="og:type" content="website" />
         <meta property="og:title" content="@title" />
         <meta property="og:image" content="@routes.Assets.at("images/logo.png")"/>
-        <meta property="og:description" content="A message aggregator with much more to do.!" />
+        <meta property="og:description" content="@utils.Utils.description" />
         <meta property="og:site_name" content="Vachin" />
         <meta property="og:url" content="https://vach.in@request.uri" />
         <meta name="twitter:card" content="summary" />
         <meta name="twitter:site" content="@@wevachin" />
+        <meta name="description" content="@utils.Utils.description">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <link rel="stylesheet" href="@routes.Assets.at("stylesheets/materialize.min.css")" />
         <link rel="stylesheet" href="@routes.Assets.at("stylesheets/custom.css")" />

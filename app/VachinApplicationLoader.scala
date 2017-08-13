@@ -30,11 +30,14 @@ class ApiComponents(context: Context) extends BuiltInComponentsFromContext(conte
   lazy val username = configuration.getString("play.auth.username").get
   lazy val password = configuration.getString("play.auth.password").get
 
+  val authList = configuration.getStringList("play.auth").get
+  val authStore = authList.toArray.map(_.toString.split(":")).map(x => LoginModel(x.head, x.last)).toList
+
   lazy val logger = LoggerFactory.getLogger("VachinLogger")
 
   lazy val dataService = new DataService(wsClient, serverHost, logger)
 
-  lazy val applicationController = new Application(dataService, logger, messagesApi, LoginModel(username, password))
+  lazy val applicationController = new Application(dataService, logger, messagesApi, authStore)
 
   lazy val assets = new controllers.Assets(httpErrorHandler)
 

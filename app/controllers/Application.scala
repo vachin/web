@@ -15,7 +15,7 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import utils.Utils._
 
 @Inject
-class Application (dataService: DataService, logger: Logger, val messagesApi: MessagesApi, auth: LoginModel) extends Controller with I18nSupport {
+class Application (dataService: DataService, logger: Logger, val messagesApi: MessagesApi, authStore: List[LoginModel]) extends Controller with I18nSupport {
 
   def index = Action.async { implicit request =>
     Future(Ok(views.html.index(title)))
@@ -64,6 +64,12 @@ class Application (dataService: DataService, logger: Logger, val messagesApi: Me
     }
   }
 
+  def getTags(limit: Option[Int]) = Action.async { implicit request =>
+    dataService.getTagsWithCount(None, limit).map { tagsWithCount =>
+      Ok(views.html.tags(tagsWithCount, tagsWithCount))
+    }
+  }
+
   def postText() = Action.async(parse.json) { implicit request =>
     val textRequestModelOpt = request.body.validate[TextRequestModel]
     val textRequestModel = textRequestModelOpt match {
@@ -106,7 +112,7 @@ class Application (dataService: DataService, logger: Logger, val messagesApi: Me
         Ok(views.html.login("Invalid Request"))
       },
       userData => {
-        if(auth.username.equals(userData.username) && auth.password.equals(userData.password)){
+        if(isObjectInList(authStore, userData)){
           Redirect(routes.Application.newText()).withSession(
             "user" -> userData.username)
         }else{
