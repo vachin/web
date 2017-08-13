@@ -128,4 +128,28 @@ class Application (dataService: DataService, logger: Logger, val messagesApi: Me
     }
   }
 
+  def about = Action.async { implicit request =>
+    dataService.getTagsWithCount(None, None).map{ tags =>
+      Ok(views.html.about(tags))
+    }
+  }
+
+  def terms = Action.async { implicit request =>
+    dataService.getTagsWithCount(None, None).map{ tags =>
+      Ok(views.html.terms(tags))
+    }
+  }
+
+  def privacy = Action.async { implicit request =>
+    dataService.getTagsWithCount(None, None).map{ tags =>
+      Ok(views.html.privacy(tags))
+    }
+  }
+
+  def contact = Action.async { implicit request =>
+    dataService.getTagsWithCount(None, None).map{ tags =>
+      Ok(views.html.contact(tags))
+    }
+  }
+
 }

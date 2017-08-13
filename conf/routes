@@ -11,7 +11,7 @@ GET     /search                     controllers.Application.searchTexts(q: Strin
 
 GET     /trending                   controllers.Application.getTexts(version: Option[Int], limit: Option[Int])
 
-GET     /tags                   controllers.Application.getTags(limit: Option[Int])
+GET     /tags                       controllers.Application.getTags(limit: Option[Int])
 
 GET     /internal/texts/new                  controllers.Application.newText()
 
@@ -25,6 +25,14 @@ GET     /login                      controllers.Application.login
 GET     /logout                      controllers.Application.logout
 
 POST     /login                      controllers.Application.loginPost
+
+GET     /about                      controllers.Application.about
+
+GET     /contact                      controllers.Application.contact
+
+GET     /terms                      controllers.Application.terms
+
+GET     /privacy                      controllers.Application.privacy
 
 GET     /:textId                    controllers.Application.getText(textId: String)
 
