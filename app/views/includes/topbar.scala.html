@@ -4,13 +4,14 @@
         <div class="nav-wrapper container" id="initial-nav">
             <a id="logo-container" href="/" class="brand-logo">Vachin</a>
             <ul class="right">
-                <li class="hide-on-small-and-down"><a title="Trending" href="/trending">Trending</a></li>
+                <li class="hide-on-med-and-down"><a title="Trending" href="/trending">Trending</a></li>
+                <li class="hide-on-large-only"><a data-position="bottom" data-delay="50" data-tooltip="Trending" href="/trending"><i class="material-icons">trending_up</i></a></li>
                 @if(request.isDefined && request.get.session.get("user").isDefined){
-                    <li><a title="@request.get.session.get("user")"><i class="material-icons">account_circle</i></a></li>
+                    <li><a class="tooltipped" href="/internal/texts/new" data-position="bottom" data-delay="50" data-tooltip="New Text"><i class="material-icons">add</i></a></li>
+                    <li><a class="tooltipped" href="/logout" data-position="bottom" data-delay="50" data-tooltip="Logout @request.get.session.get("user")"><i class="material-icons">exit_to_app</i></a></li>
                 }
-                <li class="hide-on-med-and-up"><a title="Trending" href="/trending"><i class="material-icons">trending_up</i></a></li>
                 @if(showSearch){
-                    <li><a title="Search" id="search-click"><i class="material-icons">search</i></a></li>
+                    <li><a class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Search" id="search-click"><i class="material-icons">search</i></a></li>
                 }
             </ul>
             <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>

@@ -24,7 +24,7 @@ object Utils {
     returnList.toList
   }
 
-  val title = "Vachin | Let's express ourselves..!"
+  val title = "Vachin | Let's express..!"
 
   def isObjectInList(authStore: List[LoginModel], loginModel: LoginModel): Boolean = {
     for(model <- authStore){

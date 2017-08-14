@@ -1,6 +1,6 @@
 @import includes._
 @(tags: List[TagWithCount], data: TextPaginatedModel, tag: Option[String])(implicit request: play.api.mvc.Request[Any])
-@header(request, title = s"Tagged ${tag.getOrElse("")} Messages | Vachin")
+@header(request, title = s"${tag.getOrElse("Trending").capitalize} Messages | Vachin")
 @topbar(tags, request = Some(request))
 <div class="main">
     <div class="row">
