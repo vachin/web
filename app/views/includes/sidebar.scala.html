@@ -1,6 +1,6 @@
 @(tags: List[TagWithCount], tag: String = "")
 <div class="collection with-header">
-    @for(tagWithCount <- tags){
+    @for(tagWithCount <- tags.take(20)){
         @if(tagWithCount._id.equals(tag)) {
             <a href="/tagged/@tagWithCount._id" title="@tagWithCount._id" class="collection-item active">@tagWithCount._id <span class="secondary-content">@tagWithCount.count</span></a>
         }else{
