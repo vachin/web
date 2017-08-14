@@ -31,12 +31,16 @@ object TextRequestModel {
 
   def getTextId(text: String): String = {
     val strippedText = text.replaceAll("[^a-zA-Z\\d\\s:]", "").replaceAll(" ", "-").toLowerCase
-    val stripLength = if(strippedText.length > 100) 100 else strippedText.length
+    val stripLength = if(strippedText.length > 120) 120 else strippedText.length
     strippedText.substring(0, stripLength)
   }
 
   def toTextModel(textRequestModel: TextRequestModel): TextModel = {
     TextModel(getTextId(textRequestModel.text), textRequestModel.text, 0, textRequestModel.tags, textRequestModel.by, textRequestModel.user)
+  }
+
+  def withUser(textRequestModel: TextRequestModel, user: String): TextRequestModel = {
+    TextRequestModel(textRequestModel.text, textRequestModel.tags, textRequestModel.by, Some(user))
   }
 
 }

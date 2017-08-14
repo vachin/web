@@ -1,4 +1,4 @@
-@(injectMUI: Boolean = false)
+@()
 <footer class="page-footer light-blue lighten-1">
     <div class="footer-copyright">
         <div class="container">
@@ -37,7 +37,7 @@
             var query = $(this).val();
             if(query.length > 0){
                 $.ajax({
-                    url: API_ROOT + "texts/search?q=" + query,
+                    url: API_ROOT + "/texts/search?q=" + query,
                     success: function (data, textStatus, request) {
                         var formattedData = {};
                         var formattedMap = {};
@@ -123,16 +123,24 @@
                 $("#new-text-form").submit(function (e) {
                     e.preventDefault();
                     var text = $("#new-text").val();
+                    var by = $("#by").val();
                     if(text.length < 5){
                         Materialize.toast('Please write something to post..!', 4000);
+                        return;
+                    }
+                    if(chips.length < 1){
+                        Materialize.toast('Need at least one tag..!', 4000);
                         return;
                     }
                     var textData = {};
                     textData.text = text;
                     textData.tags = chips;
+                    if(by && by.trim().length > 0){
+                        textData.by = by;
+                    }
                     $.ajax({
                         type: "POST",
-                        url: "/texts/new",
+                        url: "/internal/texts/new",
                         data: JSON.stringify(textData),
                         contentType: "application/json; charset=utf-8",
                         dataType: "text",
