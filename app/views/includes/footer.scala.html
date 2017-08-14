@@ -4,7 +4,7 @@
         <div class="container">
             © 2017 Vachin
             <div class="right">
-                <a class="grey-text text-lighten-4" href="#!">Privacy</a> &nbsp; <a class="grey-text text-lighten-4" href="#!">Terms</a> &nbsp; <a class="grey-text text-lighten-4" href="#!">Contact</a>
+                <a class="grey-text text-lighten-4" href="/about">About</a> &nbsp; <a class="grey-text text-lighten-4" href="/privacy">Privacy</a> &nbsp; <a class="grey-text text-lighten-4" href="/terms">Terms</a> &nbsp; <a class="grey-text text-lighten-4" href="/contact">Contact</a>
             </div>
         </div>
     </div>
@@ -37,7 +37,7 @@
             var query = $(this).val();
             if(query.length > 0){
                 $.ajax({
-                    url: API_ROOT + "/texts/search?q=" + query,
+                    url: API_ROOT + "texts/search?q=" + query,
                     success: function (data, textStatus, request) {
                         var formattedData = {};
                         var formattedMap = {};
