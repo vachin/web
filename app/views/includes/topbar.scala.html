@@ -5,7 +5,7 @@
             <a id="logo-container" href="/" class="brand-logo">Vachin</a>
             <ul class="right">
                 <li class="hide-on-med-and-down"><a title="Trending" href="/trending">Trending</a></li>
-                <li class="hide-on-large-only"><a data-position="bottom" data-delay="50" data-tooltip="Trending" href="/trending"><i class="material-icons">trending_up</i></a></li>
+                <li class="hide-on-large-only"><a class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Trending" href="/trending"><i class="material-icons">trending_up</i></a></li>
                 @if(request.isDefined && request.get.session.get("user").isDefined){
                     <li><a class="tooltipped" href="/internal/texts/new" data-position="bottom" data-delay="50" data-tooltip="New Text"><i class="material-icons">add</i></a></li>
                     <li><a class="tooltipped" href="/logout" data-position="bottom" data-delay="50" data-tooltip="Logout @request.get.session.get("user")"><i class="material-icons">exit_to_app</i></a></li>
