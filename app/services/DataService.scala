@@ -49,13 +49,9 @@ class DataService(ws: WSClient, serverHost: String, logger: Logger) {
   }
 
   def searchTexts(q: String, tagId: Option[String], version: Option[Int], limit: Option[Int], words: Option[String]) = {
-    val forWords = words match {
-      case Some(word) => "&words"
-      case None => ""
-    }
-    val api = serverHost + "texts/search" + forWords
-    val queryStrings = Utils.generateQueryParams(None, tagId, version, limit, Some(q))
-    ws.url(api).withQueryString(queryStrings: _*).get().map { response => 
+    val api = serverHost + "texts/search"
+    val queryStrings = Utils.generateQueryParams(None, tagId, version, limit, Some(q), words)
+    ws.url(api).withQueryString(queryStrings: _*).get().map { response =>
       val result = response.status match {
         case 200 => Json.toJson(response.json)
         case _ => Json.toJson(false)

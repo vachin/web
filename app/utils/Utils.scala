@@ -9,7 +9,7 @@ import scala.collection.mutable.ListBuffer
   */
 object Utils {
 
-  def generateQueryParams(textId: Option[String], tagId: Option[String], version: Option[Int], limit: Option[Int], q: Option[String]): List[(String, String)] = {
+  def generateQueryParams(textId: Option[String], tagId: Option[String], version: Option[Int], limit: Option[Int], q: Option[String], words: Option[String] = None): List[(String, String)] = {
     var returnList = new ListBuffer[(String, String)]
     if(textId.isDefined)
       returnList += ("textId" -> textId.get)
@@ -21,6 +21,8 @@ object Utils {
       returnList += ("limit" -> limit.get.toString)
     if(q.isDefined)
       returnList += ("q" -> q.get)
+    if(words.isDefined)
+      returnList += ("words" -> "")
     returnList.toList
   }
 

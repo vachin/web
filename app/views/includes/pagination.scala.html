@@ -19,36 +19,38 @@
     step + pagination.version <= maxVersion
 }
 
-<ul class="pagination">
-    @if(pagination.version == 1){
-        <li class="disabled"><a style="cursor: default;"><i class="material-icons">chevron_left</i></a></li>
-    }else{
-        <li><a href="@getHref(pagination.version - 1)"><i class="material-icons">chevron_left</i></a></li>
-        @for(i <- (pagination.version - 5) until pagination.version){
-            @if(i > 0) {
-                <li><a href="@getHref(i)">@i</a></li>
+@if(pagination.total > 0) {
+    <ul class="pagination">
+        @if(pagination.version == 1) {
+            <li class="disabled"><a style="cursor: default;"><i class="material-icons">chevron_left</i></a></li>
+        } else {
+            <li><a href="@getHref(pagination.version - 1)"><i class="material-icons">chevron_left</i></a></li>
+            @for(i <- (pagination.version - 5) until pagination.version) {
+                @if(i > 0) {
+                    <li><a href="@getHref(i)">@i</a></li>
+                }
             }
         }
-    }
-    <li class="active"><a style="cursor: default;">@pagination.version</a></li>
-    @if(hasNextVersion(pagination, 1)){
-        <li><a href="@getHref(pagination.version + 1)">@(pagination.version + 1)</a></li>
-    }
-    @if(hasNextVersion(pagination, 2)){
-        <li><a href="@getHref(pagination.version + 2)">@(pagination.version + 2)</a></li>
-    }
-    @if(hasNextVersion(pagination, 3)){
-        <li><a href="@getHref(pagination.version + 3)">@(pagination.version + 3)</a></li>
-    }
-    @if(hasNextVersion(pagination, 4)){
-        <li><a href="@getHref(pagination.version + 4)">@(pagination.version + 4)</a></li>
-    }
-    @if(hasNextVersion(pagination, 5)){
-        <li><a href="@getHref(pagination.version + 5)">@(pagination.version + 5)</a></li>
-    }
-    @if(hasNextVersion(pagination, 1)){
-        <li><a href="@getHref(pagination.version + 1)"><i class="material-icons">chevron_right</i></a></li>
-    }else{
-        <li class="disabled"><a style="cursor: default;"><i class="material-icons">chevron_right</i></a></li>
-    }
-</ul>
+        <li class="active"><a style="cursor: default;">@pagination.version</a></li>
+        @if(hasNextVersion(pagination, 1)) {
+            <li><a href="@getHref(pagination.version + 1)">@(pagination.version + 1)</a></li>
+        }
+        @if(hasNextVersion(pagination, 2)) {
+            <li><a href="@getHref(pagination.version + 2)">@(pagination.version + 2)</a></li>
+        }
+        @if(hasNextVersion(pagination, 3)) {
+            <li><a href="@getHref(pagination.version + 3)">@(pagination.version + 3)</a></li>
+        }
+        @if(hasNextVersion(pagination, 4)) {
+            <li><a href="@getHref(pagination.version + 4)">@(pagination.version + 4)</a></li>
+        }
+        @if(hasNextVersion(pagination, 5)) {
+            <li><a href="@getHref(pagination.version + 5)">@(pagination.version + 5)</a></li>
+        }
+        @if(hasNextVersion(pagination, 1)) {
+            <li><a href="@getHref(pagination.version + 1)"><i class="material-icons">chevron_right</i></a></li>
+        } else {
+            <li class="disabled"><a style="cursor: default;"><i class="material-icons">chevron_right</i></a></li>
+        }
+    </ul>
+}
