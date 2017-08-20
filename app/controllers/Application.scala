@@ -45,7 +45,7 @@ class Application (dataService: DataService, logger: Logger, val messagesApi: Me
 
   def searchTexts(q: String, tag: Option[String], version: Option[Int], limit: Option[Int]) = Action.async { implicit request =>
     val futureTagsWithCount = dataService.getTagsWithCount(None, None)
-    val futureTexts = dataService.searchTexts(q, tag, version, limit)
+    val futureTexts = dataService.searchTexts(q, tag, version, limit, Some("1"))
     futureTagsWithCount.flatMap{ tagsWithCount =>
       futureTexts.map{ texts =>
         Ok(views.html.search(tagsWithCount, texts, tag, q))
@@ -54,12 +54,12 @@ class Application (dataService: DataService, logger: Logger, val messagesApi: Me
   }
 
   def getText(textId: String) = Action.async { implicit request =>
-    val futureRelatedTexts = dataService.searchTexts(textId.replaceAll("-", " "), None, Some(1), Some(10)) //FIXME: not fixed for this limit value
-    val futureTagsWithCount = dataService.getTagsWithCount(None, None)
+    val futureRelatedTexts = dataService.getRelatedTexts(textId, None) //FIXME:
     val futureText = dataService.getText(textId)
+    val futureTagsWithCount = dataService.getTagsWithCount(None, None)
     futureRelatedTexts.flatMap{ relatedTexts =>
-      futureTagsWithCount.flatMap{ tagsWithCount =>
-        futureText.map{ text =>
+      futureText.flatMap{ text =>
+        futureTagsWithCount.map{ tagsWithCount =>
           Ok(views.html.text(tagsWithCount, text, relatedTexts, None))
         }
       }

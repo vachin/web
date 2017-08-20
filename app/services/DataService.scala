@@ -48,8 +48,12 @@ class DataService(ws: WSClient, serverHost: String, logger: Logger) {
     }
   }
 
-  def searchTexts(q: String, tagId: Option[String], version: Option[Int], limit: Option[Int]) = {
-    val api = serverHost + "texts/search"
+  def searchTexts(q: String, tagId: Option[String], version: Option[Int], limit: Option[Int], words: Option[String]) = {
+    val forWords = words match {
+      case Some(word) => "&words"
+      case None => ""
+    }
+    val api = serverHost + "texts/search" + forWords
     val queryStrings = Utils.generateQueryParams(None, tagId, version, limit, Some(q))
     ws.url(api).withQueryString(queryStrings: _*).get().map { response => 
       val result = response.status match {
@@ -117,6 +121,23 @@ class DataService(ws: WSClient, serverHost: String, logger: Logger) {
         case _ => Json.toJson(false)
       }
       result.validate[List[TagModel]].getOrElse(List.empty[TagModel])
+    }
+  }
+
+  def getRelatedTexts(keywords: String, tag: Option[String]): Future[TextPaginatedModel] = {
+    val futureTextsFromKeywords = searchTexts(keywords.replaceAll("-", " "), None, Some(1), Some(15), Some("1")) //FIXME: not fixed for this limit value
+    val futureTaggedTexts = tag match {
+      case Some(someTag) => getTexts(tag, None, None)
+      case None => Future(TextPaginatedModel.empty)
+    }
+    futureTextsFromKeywords.flatMap{ textsFromKeywords =>
+      if(textsFromKeywords.meta.total < 5){
+        futureTaggedTexts.map { taggedTexts =>
+          TextPaginatedModel.emptyWithList(textsFromKeywords.texts ++ taggedTexts.texts)
+        }
+      }else{
+        Future(textsFromKeywords)
+      }
     }
   }
   
