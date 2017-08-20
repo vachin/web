@@ -35,3 +35,7 @@ body {
 dt, dd.info{
     display: none !important;
 }
+
+.text-justify {
+    text-align: justify !important;
+}
