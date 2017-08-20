@@ -1,7 +1,7 @@
-@(message: String)(implicit request: play.api.mvc.Request[Any])
+@(tags: List[TagWithCount])(implicit request: play.api.mvc.Request[Any])
 @import includes._
 @header(request)
-@topbar(showSearch = false, request = Some(request))
+@topbar(showSearch = false, request = Some(request), tags = tags)
 <div class="main">
     <br />
     <div class="row">

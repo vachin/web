@@ -18,7 +18,9 @@ import utils.Utils._
 class Application (dataService: DataService, logger: Logger, val messagesApi: MessagesApi, authStore: List[LoginModel]) extends Controller with I18nSupport {
 
   def index = Action.async { implicit request =>
-    Future(Ok(views.html.index(title)))
+    dataService.getTagsWithCount(None, None).map{ tagsWithCount =>
+      Ok(views.html.index(tagsWithCount))
+    }
   }
 
   def getTexts(version: Option[Int], limit: Option[Int]) = Action.async { implicit request =>
