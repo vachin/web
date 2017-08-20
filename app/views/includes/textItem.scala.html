@@ -6,21 +6,21 @@
                 @if(small){
                     <p><span style="width:90%; display: inline-block;" class="truncate">@text.text </span> <span class="right"> <i class="tiny material-icons" style="vertical-align: middle">visibility</i> @text.views</span></p>
                 }else{
-                    <span class="card-title flow-text">@text.text</span>
+                    <span class="card-title flow-text truncate">@text.text</span>
                 }
                 </div>
             </a>
             @if(!small) {
-                <div class="card-action blue lighten-1">
-                    <div class="row">
-                        <div class="col s9 m9 l10 xl10">
+                <div class="card-action blue lighten-1" style="padding: 5px">
+                    <div class="row" style="margin-bottom: 0">
+                        <div class="col s8 m9 l10 xl10">
                             @for(tag <- text.tags){
                                 <a href="/tagged/@tag" title="@tag">
-                                    <div class="chip teal-text">@tag</div>
+                                    <div class="chip teal-text chips-initial">@tag</div>
                                 </a>
                             }
                         </div>
-                        <div class="col s3 m3 l2 xl2">
+                        <div class="col s4 m3 l2 xl2">
                             <a href="/@text._id">
                                 <div style="font-size: 25px;" class="right white-text"><i class="small material-icons" style="vertical-align: text-bottom">visibility</i> @text.views</div>
                             </a>
