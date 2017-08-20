@@ -38,6 +38,7 @@
                 $.ajax({
                     url: API_ROOT + "texts/search?q=" + query,
                     success: function (data, textStatus, request) {
+                        console.log(data);
                         var formattedData = {};
                         var formattedMap = {};
                         data.texts.forEach(function (item) {
