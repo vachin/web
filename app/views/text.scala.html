@@ -8,10 +8,8 @@
 @topbar(tags, request = Some(request))
 <div class="main">
     <div class="row">
-        <div class="col l3 xl2 hide-on-med-and-down">
-            @sidebar(tags, tag.getOrElse(""))
-        </div>
-        <div class="col s12 m8 l7 xl7 ">
+        @left(tags, tag)
+        <div class="col s12 m8 l6 xl7 ">
             @if(text.isDefined){
                 <div class="card blue">
                     <div class="card-content white-text">
@@ -58,6 +56,7 @@
                 }
             </div>
         </div>
+        @right()
     </div>
 </div>
 @if(text.isDefined) {

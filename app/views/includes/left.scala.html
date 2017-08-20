@@ -1,0 +1,4 @@
+@(tags: List[TagWithCount], tag: Option[String])
+<div class="col l3 xl2 hide-on-med-and-down">
+  @sidebar(tags, tag.getOrElse(""))
+</div>

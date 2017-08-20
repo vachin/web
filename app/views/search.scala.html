@@ -4,10 +4,8 @@
 @topbar(tags, request = Some(request))
 <div class="main">
     <div class="row">
-        <div class="col l3 xl2 hide-on-med-and-down">
-        @sidebar(tags, tag.getOrElse(""))
-        </div>
-        <div class="col s12 m8 l7 xl7">
+        @left(tags, tag)
+        <div class="col s12 m8 l6 xl7">
             @if(data.texts.isEmpty){
                 <div>
                     <h4 class="center-align red-text">Oops..! No results found..!</h4>
@@ -19,6 +17,7 @@
             }
             @pagination(data.meta, tag, Some(q))
         </div>
+        @right()
     </div>
 </div>
 @footer()
