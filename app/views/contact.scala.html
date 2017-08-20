@@ -7,7 +7,30 @@
     <div class="col l2 xl2 hide-on-med-and-down"></div>
     <div class="col s12 m8 l8 xl8 ">
       <h3 align="center">Contact Us</h3>
-      <p>These terms and conditions shall govern your use of our website.</p>
+      <div class="input-field col s12">
+        <form id="contact-form">
+          <div class="row">
+            <div class="input-field col s6">
+              <input id="form-name" type="text" class="validate">
+              <label for="name">Name</label>
+            </div>
+            <div class="input-field col s6">
+              <input id="form-email" type="email" class="validate">
+              <label for="email">Email</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s12">
+              <textarea id="form-content" class="materialize-textarea"></textarea>
+              <label for="textarea1">Write us something...</label>
+            </div>
+          </div>
+          <button class="btn waves-effect waves-light right" type="submit" name="action">
+            <span id="form-submit-text">Submit</span>
+            <i class="material-icons right">send</i>
+          </button>
+        </form>
+      </div>
     </div>
   </div>
 </div>
