@@ -1,0 +1,36 @@
+{
+  "name": "Vachin",
+  "short_name": "Vachin",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#00F",
+  "description": "A message aggregator with much more to do.!",
+  "icons": [{
+    "src": "images/logo.png",
+    "sizes": "48x48",
+    "type": "image/png"
+  }, {
+    "src": "images/logo.png",
+    "sizes": "72x72",
+    "type": "image/png"
+  }, {
+    "src": "images/logo.png",
+    "sizes": "96x96",
+    "type": "image/png"
+  }, {
+    "src": "images/logo.png",
+    "sizes": "144x144",
+    "type": "image/png"
+  }, {
+    "src": "images/logo.png",
+    "sizes": "168x168",
+    "type": "image/png"
+  }, {
+    "src": "images/logo.png",
+    "sizes": "192x192",
+    "type": "image/png"
+  }],
+  "related_applications": [{
+    "platform": "web"
+  }]
+}
