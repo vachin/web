@@ -26,7 +26,6 @@
             data: autoCompleteData,
             limit: 5,
             onAutocomplete: function(val) {
-                console.log(val);
                 window.location = '/' + autoCompleteMap[val].id;
             },
             minLength: 1,
@@ -107,12 +106,12 @@
                 var chips = [];
 
                 chipsElement.on('chip.add', function(e, chip){
-                    chips.push(chip.tag);
+                    chips.push(chip.tag.trim());
                 });
 
                 chipsElement.on('chip.delete', function(e, chip){
                     chips.filter(function (item) {
-                        return item !== chip.tag;
+                        return item.trim() !== chip.tag.trim();
                     });
                 });
 
@@ -133,10 +132,10 @@
                         return;
                     }
                     var textData = {};
-                    textData.text = text;
+                    textData.text = text.trim();
                     textData.tags = chips;
                     if(by && by.trim().length > 0){
-                        textData.by = by;
+                        textData.by = by.trim();
                     }
                     $.ajax({
                         type: "POST",
@@ -145,11 +144,15 @@
                         contentType: "application/json; charset=utf-8",
                         dataType: "text",
                         success: function (data, textStatus, request) {
-                            window.location = "/" + data;
+                            if(data && data.length > 0) {
+                                window.location = "/" + data;
+                            }else{
+                                Materialize.toast('Message already posted..! Try Another', 4000);
+                            }
                         },
                         error: function(xhr, exception){
                             console.error(exception);
-                            Materialize.toast('Message already posted..! Try Another', 4000);
+                            Materialize.toast('Something went wrong..! Try Again', 4000);
                         }
                     });
                 });
