@@ -176,10 +176,17 @@
 
     $(document).on('submit', "#contact-form", function(e){
         e.preventDefault();
-        $("#form-submit-text").text("Submitting...");
         var channel = '#vachin_contact_form';
         var name = $("#form-name").val();
-        var text = "Message from: *" + $("#form-email").val() + "* \n" + $("#form-content").val();
+        var email = $("#form-email").val();
+        var content = $("#form-content").val();
+        if(name.trim() === "" || email.trim() === "" || content.trim() === ""){
+            Materialize.toast('One ore more fields empty..!', 4000);
+            return;
+        }else{
+            $("#form-submit-text").text("Submitting...");
+        }
+        var text = "Message from: *" + email + "* \n" + content;
         var obj = {};
         obj.channel = channel;
         obj.username = name;
