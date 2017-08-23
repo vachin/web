@@ -28,11 +28,12 @@
     </nav>
 </div>
 <div class="side-nav collection with-header" id="nav-mobile">
-@for(tagWithCount <- tags){
+@for(tagWithCount <- tags.take(20)){
     @if(tagWithCount._id.equals(tag)) {
         <a href="/tagged/@tagWithCount._id" title="@tagWithCount._id" class="collection-item active">@tagWithCount._id <span class="secondary-content">@tagWithCount.count</span></a>
     }else{
         <a href="/tagged/@tagWithCount._id" title="@tagWithCount._id" class="collection-item">@tagWithCount._id <span class="secondary-content">@tagWithCount.count</span></a>
     }
+    <a href="/tags" title="See All Tags" class="collection-item">More Tags...</a>
 }
 </div>
