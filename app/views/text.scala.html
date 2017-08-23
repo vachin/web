@@ -12,11 +12,13 @@
         <div class="col s12 m8 l6 xl7 ">
             @if(text.isDefined){
                 <div class="card blue">
-                    <div class="card-content white-text">
-                        <span class="card-title flow-text">@text.get.text</span>
-                        @if(text.get.by.isDefined){
-                            <p class="right">- @text.get.by</p>
-                        }
+                    <div class="card-content main-text white-text">
+                        <div class="card-title flow-text">
+                            <p>@text.get.text</p>
+                            @if(text.get.by.isDefined){
+                                <p class="right quoted-by">- @text.get.by</p>
+                            }
+                        </div>
                     </div>
                     <div class="card-action blue lighten-1">
                         <div class="row">

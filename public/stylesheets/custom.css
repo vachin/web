@@ -39,3 +39,38 @@ dt, dd.info{
 .text-justify {
     text-align: justify !important;
 }
+
+.main-text {
+    background: url(https://unsplash.it/900/480?random) 100% 100%;
+    min-height: 360px;
+    display: table !important;
+    width: 100%;
+}
+
+.main-text p.quoted-by{
+    font-size: 18px;
+}
+
+.main-text .flow-text {
+    font-size: 36px;
+    text-align: justify;
+    display: table-cell !important;
+    vertical-align: middle;
+    padding: 20px;
+    background-color: rgba(255,99,0, 0.5);
+}
+
+@media (max-width: 728px) {
+
+    .main-text {
+        background: url(https://unsplash.it/728/480?random) 100% 100%;
+        min-height: 360px;
+        display: table !important;
+        width: 100%;
+    }
+
+    .main-text .flow-text {
+        font-size: 24px;
+        padding: 10px;
+    }
+}
