@@ -1,13 +1,13 @@
 @(pagination: PaginationModel, tag: Option[String], q: Option[String])
 @getHref(version: Int) = @{
     if(q.isDefined){
-        s"/search?q=${q.get}&version=$version"
+        s"/search?q=${q.get}&page=$version"
     }else if(q.isDefined && tag.isDefined){
-        s"/search?q=${q.get}&tag=${tag.get}&version=$version"
+        s"/search?q=${q.get}&tag=${tag.get}&page=$version"
     }else if(tag.isDefined){
-        s"/tagged/${tag.get}?version=$version"
+        s"/tagged/${tag.get}?page=$version"
     }else{
-        s"/trending?version=$version"
+        s"/trending?page=$version"
     }
 }
 

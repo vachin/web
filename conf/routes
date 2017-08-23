@@ -5,11 +5,11 @@
 # Home page
 GET     /                           controllers.Application.index
 
-GET     /tagged/:tag                controllers.Application.getTaggedTexts(tag: String, version: Option[Int], limit: Option[Int])
+GET     /tagged/:tag                controllers.Application.getTaggedTexts(tag: String, page: Option[Int], limit: Option[Int])
 
-GET     /search                     controllers.Application.searchTexts(q: String, tag: Option[String], version: Option[Int], limit: Option[Int])
+GET     /search                     controllers.Application.searchTexts(q: String, tag: Option[String], page: Option[Int], limit: Option[Int])
 
-GET     /trending                   controllers.Application.getTexts(version: Option[Int], limit: Option[Int])
+GET     /trending                   controllers.Application.getTexts(page: Option[Int], limit: Option[Int])
 
 GET     /tags                       controllers.Application.getTags(limit: Option[Int])
 

@@ -23,9 +23,9 @@ class Application (dataService: DataService, logger: Logger, val messagesApi: Me
     }
   }
 
-  def getTexts(version: Option[Int], limit: Option[Int]) = Action.async { implicit request =>
+  def getTexts(page: Option[Int], limit: Option[Int]) = Action.async { implicit request =>
     val futureTagsWithCount = dataService.getTagsWithCount(None, None)
-    val futureTexts = dataService.getTexts(None, version, limit)
+    val futureTexts = dataService.getTexts(None, page, limit)
     futureTagsWithCount.flatMap{ tagsWithCount =>
       futureTexts.map{ texts =>
         Ok(views.html.tagged(tagsWithCount, texts, None))
@@ -33,9 +33,9 @@ class Application (dataService: DataService, logger: Logger, val messagesApi: Me
     }
   }
 
-  def getTaggedTexts(tag: String, version: Option[Int], limit: Option[Int]) = Action.async { implicit request =>
+  def getTaggedTexts(tag: String, page: Option[Int], limit: Option[Int]) = Action.async { implicit request =>
     val futureTagsWithCount = dataService.getTagsWithCount(None, None)
-    val futureTexts = dataService.getTexts(Some(tag), version, limit)
+    val futureTexts = dataService.getTexts(Some(tag), page, limit)
     futureTagsWithCount.flatMap{ tagsWithCount =>
       futureTexts.map{ texts =>
         Ok(views.html.tagged(tagsWithCount, texts, Some(tag)))
@@ -43,9 +43,9 @@ class Application (dataService: DataService, logger: Logger, val messagesApi: Me
     }
   }
 
-  def searchTexts(q: String, tag: Option[String], version: Option[Int], limit: Option[Int]) = Action.async { implicit request =>
+  def searchTexts(q: String, tag: Option[String], page: Option[Int], limit: Option[Int]) = Action.async { implicit request =>
     val futureTagsWithCount = dataService.getTagsWithCount(None, None)
-    val futureTexts = dataService.searchTexts(q, tag, version, limit, Some("1"))
+    val futureTexts = dataService.searchTexts(q, tag, page, limit, Some("1"))
     futureTagsWithCount.flatMap{ tagsWithCount =>
       futureTexts.map{ texts =>
         Ok(views.html.search(tagsWithCount, texts, tag, q))
