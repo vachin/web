@@ -14,7 +14,7 @@
 <script>
     $(document).ready(function() {
 
-        var autocompleteSelectors = '#vachin-search, #vachin-search-mobile';
+        var autocompleteSelectors = '#vachin-search, #vachin-search-mobile, #new-text';
 
         var autoCompleteData = {
             "vachin": null
@@ -145,7 +145,7 @@
                         dataType: "text",
                         success: function (data, textStatus, request) {
                             if(data && data.length > 0) {
-                                window.location = "/" + data;
+                                Materialize.toast('Message posted successfully..!', 4000);
                             }else{
                                 Materialize.toast('Message already posted..! Try Another', 4000);
                             }
