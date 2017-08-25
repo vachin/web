@@ -57,7 +57,7 @@ dt, dd.info{
     display: table-cell !important;
     vertical-align: middle;
     padding: 20px;
-    background-color: rgba(255,99,0, 0.5);
+    background-color: rgba(144,202,249, 0.5);
 }
 
 @media (max-width: 728px) {
