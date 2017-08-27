@@ -38,6 +38,9 @@
                                 <div class="addthis_inline_share_toolbox"></div>
                             </div>
                             <div class="col s2">
+                                @if(request.session.get("user").isDefined){
+                                    <a style="position: absolute" href="/@text.get._id/edit" data-position="bottom" data-delay="50" data-tooltip="Click to Edit" class="tooltipped right white-text"><i class="small material-icons">mode_edit</i></a>
+                                }
                                 <a class="right tooltipped" data-position="bottom" data-delay="50" data-tooltip="Click to Copy">
                                     <i class="small material-icons text-copy-icon white-text" style="vertical-align: middle" data-text="@text.get.text">content_copy</i>
                                 </a>
