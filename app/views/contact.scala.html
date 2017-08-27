@@ -13,7 +13,7 @@
             <div class="input-field col s12 m6">
               <input id="form-name" type="text" class="validate" required>
               <label for="name">Name</label>
-            </div>
+            </div>>
             <div class="input-field col s12 m6">
               <input id="form-email" type="email" class="validate" required>
               <label for="email">Email</label>
@@ -34,4 +34,40 @@
     </div>
   </div>
 </div>
+  <script>
+    $(document).on('submit', "#contact-form", function(e){
+      e.preventDefault();
+      var channel = '#vachin_contact_form';
+      var name = $("#form-name").val();
+      var email = $("#form-email").val();
+      var content = $("#form-content").val();
+      if(name.trim() === "" || email.trim() === "" || content.trim() === ""){
+        Materialize.toast('One ore more fields empty..!', 4000);
+        return;
+      }else{
+        $("#form-submit-text").text("Submitting...");
+      }
+      var text = "Message from: *" + email + "* \n" + content;
+      var obj = {};
+      obj.channel = channel;
+      obj.username = name;
+      obj.text = text;
+      obj.icon_emoji = ":telephone:";
+      $.ajax({
+        url : "https://hooks.slack.com/services/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",
+        method : "POST",
+        dataType: 'text',
+        async: true,
+        data: JSON.stringify(obj),
+        timeout : 30000     //30 seconds timeout
+      }).done(function(status){
+        Materialize.toast('Thank you, we will get back to you shortly..!', 4000);
+      }).fail(function(){
+        Materialize.toast('Something went wrong. Please try again..!', 4000);
+      }).always(function () {
+        $("#form-submit-text").text("Submit");
+      });
+
+    });
+  </script>
 @footer()

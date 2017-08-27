@@ -25,9 +25,21 @@ class DataService(ws: WSClient, serverHost: String, logger: Logger) {
     }
   }
 
-  def putText(body: TextRequestModel) = {
+  def insertText(body: TextRequestModel) = {
     val api = serverHost + "texts"
     ws.url(api).post(Json.toJson(body)).map { response => 
+      val result = response.status match {
+        case 200 => Json.toJson(response.json)
+        case _ => Json.toJson("")
+      }
+      result.validate[String].getOrElse("")
+    }
+  }
+
+  def updateText(textId: String, body: TextRequestModel) = {
+    val api = serverHost + "texts"
+    val queryStrings = Utils.generateQueryParams(Some(textId), None, None, None, None)
+    ws.url(api).withQueryString(queryStrings: _*).put(Json.toJson(body)).map { response =>
       val result = response.status match {
         case 200 => Json.toJson(response.json)
         case _ => Json.toJson("")

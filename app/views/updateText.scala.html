@@ -1,10 +1,116 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+@(text: Option[TextModel])(implicit request: play.api.mvc.Request[Any])
+@import includes._
+
+@header(request, title = "Edit Text | Vachin")
+@topbar(showSearch = false, request = Some(request))
+<div class="main">
+  <br />
+  <div class="row">
+    <div class="col m2 l3"></div>
+    <div class="col s12 m8 l6">
+      @if(text.isDefined) {
+        <form id="new-text-form">
+          <div class="row">
+            <div class="input-field col s12">
+              <i class="material-icons prefix">mode_edit</i>
+              <textarea required id="new-text" class="materialize-textarea validate" placeholder="Enter Text">@text.get.text</textarea>
+            </div>
+          </div>
+          <div class="input-field col s12">
+            <i class="material-icons prefix">format_quote</i>
+            <input id="by" type="text" class="validate" value="@text.get.by"/>
+            <label for="last_name">Quoted By | Attribution</label>
+          </div>
+          <div class="row">
+            <div class="input-field col s12">
+              <i class="material-icons prefix">loyalty</i>
+              <div class="chips chips-initial tags-autocomplete" data-chips="@text.get.tags.mkString(",")"></div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s4 offset-s8">
+              <button class="btn waves-effect waves-light right" type="submit" name="action">Update
+                <i class="material-icons right">send</i>
+              </button>
+            </div>
+          </div>
+        </form>
+        <script>
+          $.ajax({
+            url: API_ROOT + "tags",
+            success: function (data, textStatus, request) {
+              var dataObj = {};
+              data.forEach(function (item) {
+                dataObj[item._id] = null;
+              });
+              var initialData = ["@Html(text.get.tags.mkString("\",\""))"].map(function (tag) {
+                return {tag: tag};
+              });
+              $('.tags-autocomplete').material_chip({
+                autocompleteOptions: {
+                  data: dataObj,
+                  limit: Infinity,
+                  minLength: 1
+                },
+                data: initialData,
+                placeholder: 'Enter a tag',
+                secondaryPlaceholder: '+Tag'
+              });
+            }
+          });
+          $(document).ready(function () {
+            $("#new-text-form").submit(function (e) {
+              e.preventDefault();
+              var text = $("#new-text").val();
+              var by = $("#by").val();
+              var chips = $('.tags-autocomplete').material_chip('data').map(function (item) {
+                return item.tag;
+              });
+              if(text.length < 5){
+                Materialize.toast('Please write something to post..!', 4000);
+                return;
+              }
+              if(chips.length < 1){
+                Materialize.toast('Need at least one tag..!', 4000);
+                return;
+              }
+              if(chips.length > 5){
+                Materialize.toast('No more than 5 tags are allowed..!', 4000);
+                return;
+              }
+              var textData = {};
+              textData.text = text.trim();
+              textData.tags = chips;
+              if(by && by.trim().length > 0){
+                textData.by = by.trim();
+              }
+              $.ajax({
+                type: "POST",
+                url: "/@text.get._id" + "/edit",
+                data: JSON.stringify(textData),
+                contentType: "application/json; charset=utf-8",
+                dataType: "text",
+                success: function (data, textStatus, request) {
+                  if(data && data.length > 0) {
+                    Materialize.toast('Message updated successfully..!', 4000);
+                  }else{
+                    Materialize.toast("Can't update message..! Try Another", 4000);
+                  }
+                },
+                error: function(xhr, exception){
+                  console.error(exception);
+                  Materialize.toast('Something went wrong..! Try Again', 4000);
+                }
+              });
+            });
+          });
+        </script>
+      }else{
+        <h2 class="red-text">Text Not Found..!</h2>
+        <a class="right" href="/internal/texts/new">Try adding new Text</a>
+      }
+    </div>
+    <div class="col m2 l3"></div>
+  </div>
+</div>
+@footer()

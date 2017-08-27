@@ -73,6 +73,35 @@ class Application (dataService: DataService, logger: Logger, val messagesApi: Me
     }
   }
 
+  def updateText(textId: String) = Action.async { implicit request =>
+    request.session.get("user").map { user =>
+      dataService.getText(textId).map(text =>
+        Ok(views.html.updateText(text))
+      )
+    }.getOrElse {
+      Future(Redirect(routes.Application.login()))
+    }
+  }
+
+  def updatePostText(textId: String) = Action.async(parse.json) { implicit request =>
+    request.session.get("user").map { user =>
+      val textRequestModelOpt = request.body.validate[TextRequestModel]
+      val textRequestModel = textRequestModelOpt match {
+        case error: JsError => logger.warn("Errors: " + JsError.toJson(error)); None
+        case model: JsSuccess[_] => Some(model.get.asInstanceOf[TextRequestModel])
+      }
+      if(textRequestModel.isDefined) {
+        dataService.updateText(textId, TextRequestModel.withUser(textRequestModel.get, user)).map(result =>
+          Ok(result)
+        )
+      }else{
+        Future(BadRequest(""))
+      }
+    }.getOrElse {
+      Future(Unauthorized(""))
+    }
+  }
+
   def getTags(limit: Option[Int]) = Action.async { implicit request =>
     dataService.getTagsWithCount(None, limit).map { tagsWithCount =>
       Ok(views.html.tags(tagsWithCount, tagsWithCount))
@@ -87,14 +116,14 @@ class Application (dataService: DataService, logger: Logger, val messagesApi: Me
         case model: JsSuccess[_] => Some(model.get.asInstanceOf[TextRequestModel])
       }
       if(textRequestModel.isDefined) {
-        dataService.putText(TextRequestModel.withUser(textRequestModel.get, user)).map(result =>
+        dataService.insertText(TextRequestModel.withUser(textRequestModel.get, user)).map(result =>
           Ok(result)
         )
       }else{
         Future(BadRequest(""))
       }
     }.getOrElse {
-      Future(Redirect(routes.Application.login()))
+      Future(Unauthorized(""))
     }
   }
 

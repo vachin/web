@@ -13,26 +13,30 @@ GET     /trending                   controllers.Application.getTexts(page: Optio
 
 GET     /tags                       controllers.Application.getTags(limit: Option[Int])
 
-GET     /internal/texts/new                  controllers.Application.newText()
+GET     /internal/texts/new         controllers.Application.newText()
 
-POST    /internal/texts/new                  controllers.Application.postText()
+POST    /internal/texts/new         controllers.Application.postText()
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
 
 GET     /login                      controllers.Application.login
 
-GET     /logout                      controllers.Application.logout
+GET     /logout                     controllers.Application.logout
 
-POST     /login                      controllers.Application.loginPost
+POST     /login                     controllers.Application.loginPost
 
 GET     /about                      controllers.Application.about
 
-GET     /contact                      controllers.Application.contact
+GET     /contact                    controllers.Application.contact
 
 GET     /terms                      controllers.Application.terms
 
-GET     /privacy                      controllers.Application.privacy
+GET     /privacy                    controllers.Application.privacy
+
+GET     /:textId/edit               controllers.Application.updateText(textId: String)
+
+POST    /:textId/edit               controllers.Application.updatePostText(textId: String)
 
 GET     /:textId                    controllers.Application.getText(textId: String)
 
