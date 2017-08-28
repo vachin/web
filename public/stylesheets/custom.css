@@ -53,11 +53,11 @@ dt, dd.info{
 
 .main-text .flow-text {
     font-size: 36px;
-    text-align: justify;
+    line-height: 42px !important;
     display: table-cell !important;
     vertical-align: middle;
     padding: 20px;
-    background-color: rgba(144,202,249, 0.5);
+    background-color: rgba(144,202,249, 0.7);
 }
 
 @media (max-width: 728px) {
