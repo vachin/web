@@ -43,26 +43,6 @@
     </div>
 </div>
 <script>
-        window._tags = {"friend": null};
-        $.ajax({
-            url: API_ROOT + "tags",
-            success: function (data, textStatus, request) {
-                var dataObj = {};
-                data.forEach(function (item) {
-                    dataObj[item._id] = null;
-                });
-                window._tags = dataObj;
-                $('.tags-autocomplete').material_chip({
-                    autocompleteOptions: {
-                        data: window._tags,
-                        limit: Infinity,
-                        minLength: 1
-                    },
-                    placeholder: 'Enter a tag',
-                    secondaryPlaceholder: '+Tag'
-                });
-            }
-        });
         $(document).ready(function () {
             $("#new-text-form").submit(function (e) {
                 e.preventDefault();

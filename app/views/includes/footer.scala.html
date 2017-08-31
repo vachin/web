@@ -20,11 +20,44 @@
 
         var autoCompleteMap = {};
 
+        window._tags = {"friend": null};
+        $.ajax({
+            url: API_ROOT + "tags",
+            success: function (data, textStatus, request) {
+                var dataObj = {}, formattedData = {}, formattedMap = {}, tag, obj;
+                data.forEach(function (item) {
+                    tag = item._id.replace(/-/g, ' ');
+                    obj = {id: item._id, views: null, image: null, isTag: true};
+                    formattedData[tag + " quotes"] = null;
+                    formattedData[tag + " messages"] = null;
+                    formattedMap[tag + " quotes"] = obj;
+                    formattedMap[tag + " messages"] = obj;
+                    dataObj[item._id] = null;
+                    $.extend(autoCompleteData, formattedData);
+                    $.extend(autoCompleteMap, formattedMap);
+                });
+                window._tags = dataObj;
+                $('.tags-autocomplete').material_chip({
+                    autocompleteOptions: {
+                        data: window._tags,
+                        limit: Infinity,
+                        minLength: 1
+                    },
+                    placeholder: 'Enter a tag',
+                    secondaryPlaceholder: '+Tag'
+                });
+            }
+        });
+
         $(autocompleteSelectors).autocomplete({
             data: autoCompleteData,
             limit: 5,
             onAutocomplete: function(val) {
-                window.location = '/' + autoCompleteMap[val].id;
+                if(autoCompleteMap[val].isTag){
+                    window.location = '/tagged/' + autoCompleteMap[val].id;
+                }else {
+                    window.location = '/' + autoCompleteMap[val].id;
+                }
             },
             minLength: 1,
             scrollLength: 3
@@ -51,14 +84,9 @@
                     }
                 });
             }
-
         });
-
-
+        
         $(".button-collapse").sideNav();
-
-        //$('.tooltipped').tooltip({delay: 50});
-
         var initialNav = "#initial-nav";
         var searchNav = "#search-nav";
         var searchClick = "#search-click";
