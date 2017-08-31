@@ -39,4 +39,12 @@
         <script src="@routes.Assets.at("javascripts/materialize.min.js")"></script>
     </head>
     <body>
+        <div id="fb-root"></div>
+        <script>(function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.10&appId=274216633046171";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));</script>
         <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MLLFZRQ" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
