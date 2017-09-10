@@ -40,7 +40,7 @@ object Utils {
   val keywords = "vachin, messages, texts, quotes, social, chat, feelings, inbox, online, online quotes, online messages"
 
   def getMetaKeywords(tag: String): String = {
-    s"$keywords $tag messages, $tag tagged messages, $tag quotes, $tag texts, $tag sentences, $tag memos"
+    s"$keywords $tag messages, $tag tagged messages, $tag quotes, $tag texts, $tag sentences, $tag memos ${tag.split(" ").mkString(", ")}"
   }
 
   val description = "Vachin is the curated store of texts, quotes, messages which we generally use to express ourselves."
