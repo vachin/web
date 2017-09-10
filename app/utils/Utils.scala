@@ -43,7 +43,7 @@ object Utils {
     s"$keywords $tag messages, $tag tagged messages, $tag quotes, $tag texts, $tag sentences, $tag memos"
   }
 
-  val description = "A message aggregator with much more to do.!"
+  val description = "Vachin is the curated store of texts, quotes, messages which we generally use to express ourselves."
 
 
 }
