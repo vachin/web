@@ -43,17 +43,18 @@ class Application (dataService: DataService, logger: Logger, val messagesApi: Me
     }
   }
 
-  def searchTexts(q: String, tag: Option[String], page: Option[Int], limit: Option[Int]) = Action.async { implicit request =>
+  def searchTexts(q: Option[String], tag: Option[String], page: Option[Int], limit: Option[Int]) = Action.async { implicit request =>
     val futureTagsWithCount = dataService.getTagsWithCount(None, None)
-    val futureTextsWithWords = dataService.searchTexts(q, tag, page, limit, Some("1"))
-    val futureTexts = dataService.searchTexts(q, tag, page, limit, None)
+    val query = q.getOrElse("")
+    val futureTextsWithWords = dataService.searchTexts(query, tag, page, limit, Some("1"))
+    val futureTexts = dataService.searchTexts(query, tag, page, limit, None)
     futureTagsWithCount.flatMap{ tagsWithCount =>
       futureTextsWithWords.flatMap{ texts =>
         if(texts.meta.total > 0){
-          Future(Ok(views.html.search(tagsWithCount, texts, tag, q)))
+          Future(Ok(views.html.search(tagsWithCount, texts, tag, query)))
         }else{
           futureTexts.map{ textsFromSearch =>
-            Ok(views.html.search(tagsWithCount, textsFromSearch, tag, q))
+            Ok(views.html.search(tagsWithCount, textsFromSearch, tag, query))
           }
         }
       }

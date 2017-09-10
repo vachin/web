@@ -6,14 +6,24 @@
     <div class="row">
         @left(tags, tag)
         <div class="col s12 m8 l6 xl7">
-            @if(data.texts.isEmpty){
+            @for(textModel <- data.texts) {
+                @textItem(textModel)
+            }
+            @if(data.texts.length < 5){
                 <div>
-                    <h4 class="center-align red-text">Oops..! No results found..!</h4>
+                    <script>
+                            (function() {
+                                var cx = '002483794722605099418:bez4ir_hr24';
+                                var gcse = document.createElement('script');
+                                gcse.type = 'text/javascript';
+                                gcse.async = true;
+                                gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
+                                var s = document.getElementsByTagName('script')[0];
+                                s.parentNode.insertBefore(gcse, s);
+                            })();
+                    </script>
+                    <gcse:searchresults-only></gcse:searchresults-only>
                 </div>
-            }else{
-                @for(textModel <- data.texts) {
-                    @textItem(textModel)
-                }
             }
             @pagination(data.meta, tag, Some(q))
         </div>

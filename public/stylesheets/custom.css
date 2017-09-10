@@ -75,3 +75,7 @@ dt, dd.info{
         padding: 10px;
     }
 }
+
+.gsc-above-wrapper-area, .gcsc-branding, .gsc-adBlock {
+    display: none !important;
+}
