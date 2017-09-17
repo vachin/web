@@ -5,32 +5,59 @@
 @header(request, title = "Login | Vachin")
 @topbar(showSearch = false, request = Some(request))
 <div class="main">
-    <div class="row">
-        <div class="col s12">
-            <div class="row">
-                <div class="col m2 l3"></div>
-                <div class="input-field col s12 m8 l6">
-                @helper.form(action = routes.Application.loginPost()){
-                    @helper.input(loginForm("username")) { (id, name, value, args) =>
-                        <div class="input-field">
-                        <input type="email" name="@name" id="@id">
-                        <label for="email">Email</label>
+    <meta name="google-signin-client_id" content="407124636562-d9rctjrl1liojk427jrv6a0s76cuhdof.apps.googleusercontent.com">
+    <div style="padding: 50px 0;">
+        <div class="row">
+            <div class="col s12">
+                <div class="row">
+                    <div class="col m1 l2"></div>
+                    <div class="col s12 m4 l3 center">
+                        <p>SignIn with </p>
+                        <div style="display: inline-block">
+                            <div class="input-field">
+                                <div class="g-signin2" data-onsuccess="onSignIn" data-onfailure="onSignInFailure"></div>
+                            </div>
                         </div>
-                    }
-                    @helper.input(loginForm("password")) { (id, name, value, args) =>
-                        <div class="input-field">
-                        <input type="password" name="@name" id="@id">
-                        <label for="password">Password</label>
-                        </div>
-                    }
-                    <button class="btn waves-effect waves-light right" type="submit" name="action">Submit
-                        <i class="material-icons right">send</i>
-                    </button>
-                }
+                    </div>
+                    <div class="col s12 m6 l5">
+                        <p align="center">SignIn </p>
+                        @helper.form(action = routes.Application.loginPost()){
+                            @helper.input(loginForm("username")) { (id, name, value, args) =>
+                                <div class="input-field">
+                                    <input type="email" name="@name" id="@id">
+                                    <label for="email">Email</label>
+                                </div>
+                            }
+                            @helper.input(loginForm("password")) { (id, name, value, args) =>
+                                <div class="input-field">
+                                    <input type="password" name="@name" id="@id">
+                                    <label for="password">Password</label>
+                                </div>
+                            }
+                            <button class="btn waves-effect waves-light right" type="submit" name="action">Submit
+                                <i class="material-icons right">send</i>
+                            </button>
+                        }
+                    </div>
+                    <div class="col m1 l2"></div>
                 </div>
-                <div class="col m2 l3"></div>
             </div>
         </div>
     </div>
 </div>
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+<script>
+        function onSignIn(googleUser) {
+            var profile = googleUser.getBasicProfile();
+            console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+            console.log('Name: ' + profile.getName());
+            console.log('Image URL: ' + profile.getImageUrl());
+            console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+        }
+
+        function onSignInFailure() {
+            console.log("Login Failed");
+        }
+
+</script>
 @footer()
