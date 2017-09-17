@@ -12,7 +12,7 @@
         <div class="col s12 m8 l6 xl7 ">
             @if(text.isDefined){
                 <div class="card blue">
-                    <div class="card-content main-text white-text">
+                    <div class="card-content main-text white-text" id="main-text">
                         <div class="card-title flow-text">
                             <p>@text.get.text</p>
                             @if(text.get.by.isDefined){
@@ -34,7 +34,7 @@
                     </div>
                     <div class="card-action blue lighten-3">
                         <div class="row">
-                            <div class="col s10">
+                            <div class="col s8">
                                 <div class="addthis_inline_share_toolbox"></div>
                             </div>
                             <div class="col s2">
@@ -43,6 +43,11 @@
                                 }
                                 <a class="right tooltipped" data-position="bottom" data-delay="50" data-tooltip="Click to Copy">
                                     <i class="small material-icons text-copy-icon white-text" style="vertical-align: middle" data-text="@text.get.text">content_copy</i>
+                                </a>
+                            </div>
+                            <div class="col s2">
+                                <a class="right tooltipped" data-position="bottom" data-delay="50" data-tooltip="Change Background">
+                                    <i class="small change-image material-icons white-text" style="vertical-align: middle">refresh</i>
                                 </a>
                             </div>
                         </div>
@@ -71,6 +76,10 @@
             Materialize.toast('Text copied..!', 2000);
         });
 
+        $(document).on('click', '.change-image', function (el) {
+            applyRandomImage();
+        });
+
         function copyToClipboard(text) {
             var $temp = $("<input>");
             $("body").append($temp);
@@ -78,6 +87,13 @@
             document.execCommand("copy");
             $temp.remove();
         }
+
+        var mainText = $("#main-text");
+        function applyRandomImage() {
+            var w = mainText.outerWidth(), h = mainText.outerHeight();
+            mainText.css("background", "url(https://unsplash.it/" + w + "/" + h + "?random&time=" + new Date().getTime() + ") 100% 100%");
+        }
+        applyRandomImage();
 </script>
 @if(text.isDefined) {
     <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-594edbdf3f1a526c"></script>

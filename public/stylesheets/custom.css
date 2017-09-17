@@ -65,7 +65,7 @@ dt, dd.info{
 
     .main-text {
         background: url(https://unsplash.it/728/480?random) 100% 100%;
-        min-height: 360px;
+        min-height: 280px !important;
         display: table !important;
         width: 100%;
     }
