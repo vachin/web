@@ -20,6 +20,11 @@
                             }
                         </div>
                     </div>
+                    <div id="download-progress" style="display: block">
+                        <div class="progress">
+                            <div class="indeterminate"></div>
+                        </div>
+                    </div>
                     <div class="card-action blue lighten-1">
                         <div class="row">
                             <div class="col s9 m9 l10 xl10">
@@ -34,7 +39,7 @@
                     </div>
                     <div class="card-action blue lighten-3">
                         <div class="row">
-                            <div class="col s8">
+                            <div class="col s6">
                                 <div class="addthis_inline_share_toolbox"></div>
                             </div>
                             <div class="col s2">
@@ -48,6 +53,11 @@
                             <div class="col s2">
                                 <a class="right tooltipped" data-position="bottom" data-delay="50" data-tooltip="Change Background">
                                     <i class="small change-image material-icons white-text" style="vertical-align: middle">refresh</i>
+                                </a>
+                            </div>
+                            <div class="col s2">
+                                <a class="right tooltipped" data-position="bottom" data-delay="50" data-tooltip="Download Text With Image">
+                                    <i class="small download-text-image material-icons white-text" data-text="@text.get.text" style="vertical-align: middle">file_download</i>
                                 </a>
                             </div>
                         </div>
@@ -70,6 +80,7 @@
         @right(Some(request.uri))
     </div>
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.5.0-beta4/html2canvas.min.js"></script>
 <script>
         $(document).on('click', '.text-copy-icon', function (el) {
             copyToClipboard($(this).data("text"));
@@ -80,6 +91,10 @@
             applyRandomImage();
         });
 
+        $(document).on('click', '.download-text-image', function (el) {
+            downloadTextWithImage($(this).data('text'));
+        });
+
         function copyToClipboard(text) {
             var $temp = $("<input>");
             $("body").append($temp);
@@ -88,12 +103,56 @@
             $temp.remove();
         }
 
-        var mainText = $("#main-text");
+        var mainText = $("#main-text"), r = 0, downloadProgress = $("#download-progress");
         function applyRandomImage() {
+            downloadProgress.show();
             var w = mainText.outerWidth(), h = mainText.outerHeight();
-            mainText.css("background", "url(https://unsplash.it/" + w + "/" + h + "?random&time=" + new Date().getTime() + ") 100% 100%");
+            toDataURL("https://unsplash.it/" + w + "/" + h + "?random&time=" + r++, function(dataUrl) {
+                console.log('RESULT:', dataUrl);
+                mainText.css("background", "url(" + dataUrl + ") 100% 100%");
+                downloadProgress.hide();
+            });
         }
         applyRandomImage();
+
+        function toDataURL(url, callback) {
+            var xhr = new XMLHttpRequest();
+            xhr.onload = function () {
+                var reader = new FileReader();
+                reader.onloadend = function () {
+                    callback(reader.result);
+                }
+                reader.readAsDataURL(xhr.response);
+            };
+            xhr.open('GET', url);
+            xhr.responseType = 'blob';
+            xhr.send();
+        }
+
+        function downloadURI(uri, name) {
+            var link = document.createElement("a");
+            link.download = name;
+            link.href = uri;
+            link.click();
+            link.remove();
+        }
+
+        function downloadTextWithImage(name) {
+            /*html2canvas(mainText[0], {
+                onrendered: function(canvas) {
+                    var img = canvas.toDataURL("image/png");
+                    downloadURI("data:" + img, name + ".png");
+                },
+                canvas: canvas,
+                allowTaint: true,
+                taintTest: false
+            });*/
+            html2canvas(mainText[0]).then(function(canvas) {
+                var img = canvas.toDataURL("image/png");
+                downloadURI("data:" + img, name + ".png");
+            });
+        }
+
 </script>
 @if(text.isDefined) {
     <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-594edbdf3f1a526c"></script>

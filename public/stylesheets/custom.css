@@ -79,3 +79,8 @@ dt, dd.info{
 .gsc-above-wrapper-area, .gcsc-branding, .gsc-adBlock {
     display: none !important;
 }
+
+.progress{
+    margin: 0 !important;
+    height: 2px;
+}
